@@ -7,3 +7,10 @@
 * {
   box-sizing: border-box;
 }
+
+.App {
+  background: $green-40;
+  height: 100vh;
+}
+
+@import "./screens/Home/home.scss";
