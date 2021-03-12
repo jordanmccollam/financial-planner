@@ -5,8 +5,14 @@ import * as Comp from './components';
 function App() {
   return (
     <div className="App">
-      <Comp.Navbar />
-      <Screens.Home />
+      <Container fluid className="p-0" >
+        <Comp.Navbar />
+        <Row className="p-3">
+          <Col>
+            <Screens.Home />
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 }

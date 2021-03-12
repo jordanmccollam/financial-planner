@@ -13,6 +13,7 @@ const <%= name %> = (props) => {
   return (
     <div className={`${className} <%= h.changeCase.paramCase(name) %>`}>
     
+      {children}
     </div>
   )
 }
