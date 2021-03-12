@@ -114,5 +114,7 @@ $radius: 15px;
 $font-primary: "Lato", sans-serif;
 $font-secondary: "Lato", sans-serif;
 
-$shadow: 0 5px 15px rgba(0,0,0,.08);
-$shadow-hover: 0 15px 25px rgba(0,0,0,0.09);
+// $shadow: 0 5px 15px rgba(0,0,0,.08);
+$shadow-color: rgba(0,0,0,0.5);
+$shadow: 0 5px 15px $shadow-color;
+$shadow-hover: 0 15px 25px rgba(0,0,0,0.08);

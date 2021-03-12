@@ -11,6 +11,9 @@
 .App {
   background: $green-40;
   height: 100vh;
+  margin: 0px;
+  padding: 0px;
 }
 
 @import "./screens/Home/home.scss";
+@import "./components/Navbar/navbar.scss";

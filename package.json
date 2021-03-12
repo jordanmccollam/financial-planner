@@ -21,10 +21,5 @@
   "bugs": {
     "url": "https://github.com/jordanmccollam/financial-planner/issues"
   },
-  "homepage": "https://github.com/jordanmccollam/financial-planner#readme",
-  "dependencies": {
-    "bootstrap": "^4.6.0",
-    "react-bootstrap": "^1.5.2",
-    "sass": "^1.32.8"
-  }
+  "homepage": "https://github.com/jordanmccollam/financial-planner#readme"
 }
