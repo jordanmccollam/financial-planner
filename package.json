@@ -1,0 +1,25 @@
+{
+  "name": "financial-planner",
+  "version": "1.0.0",
+  "description": "Financial Planner",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cd client && yarn build",
+    "install-client": "cd client && yarn",
+    "heroku-postbuild": "yarn install-client && yarn build",
+    "dev": "concurrently \"nodemon server.js\" \"cd client/ && yarn start\"",
+    "client": "cd client && yarn start",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jordanmccollam/financial-planner.git"
+  },
+  "author": "Jordan McCollam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jordanmccollam/financial-planner/issues"
+  },
+  "homepage": "https://github.com/jordanmccollam/financial-planner#readme"
+}
