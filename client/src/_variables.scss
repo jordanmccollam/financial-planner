@@ -1,0 +1,118 @@
+/*
+ *  Responsive
+ */
+$phone: 37.438em; // 599px
+$phablet: 37.5em; //600px
+$tablet: 56.25em; // 900px
+$laptop: 75em; // 1200px
+$desktop: 90em; // 1440px
+
+$landscape: "(orientation: landscape)";
+
+$phone-only: "(max-width: #{$phone})";
+$phablet-only: "(min-width: #{$phablet}) and (max-width: #{$tablet})";
+$tablet-only: "(min-width: #{$tablet}) and (max-width: #{$laptop})";
+$laptop-only: "(min-width: #{$laptop}) and (max-width: #{$desktop})";
+
+$up-to-phablet: "(max-width: #{$phablet})";
+$up-to-tablet: "(max-width: #{$tablet})";
+$up-to-laptop: "(max-width: #{$laptop})";
+$up-to-desktop: "(max-width: #{$desktop})";
+
+$phablet-up: "(min-width: #{$phablet})";
+$tablet-up: "(min-width: #{$tablet})";
+$laptop-up: "(min-width: #{$laptop})";
+$desktop-up: "(min-width: #{$desktop})";
+
+/*
+ *  Font Sizes
+ */
+$text-06: 3.375em;
+$text-05: 2.625em;
+$text-04: 2em;
+$text-03: 1.75em;
+$text-02: 1.25em;
+$text-01: 1em;
+$text-00: 0.875em;
+
+/*
+ *  SPACING
+ */
+$space-15: 4rem;
+$space-14: 3.75rem;
+$space-13: 3.5rem;
+$space-12: 3.25rem;
+$space-11: 3rem;
+$space-10: 2.75rem;
+$space-09: 2.5rem;
+$space-08: 2.25rem;
+$space-07: 2rem;
+$space-06: 1.75rem;
+$space-05: 1.5rem;
+$space-04: 1.25rem;
+$space-03: 1rem;
+$space-02: 0.75rem;
+$space-01: 0.5rem;
+$space-00: 0.25rem;
+
+/*
+ *  COLORS
+ */
+
+// Blue
+$blue-20: #1f2a5a;
+$blue-10: #5B7EDD;
+$blue-00: #B7D0FF;
+
+// Green
+$green-80: #061f19;
+$green-70: #0c3e32;
+$green-60: #115c4a;
+$green-50: #177b63;
+$green-40: #1d9a7c; // primary
+$green-30: #4aae96;
+$green-20: #77c2b0;
+$green-10: #a5d7cb;
+$green-00: #d2ebe5;
+
+// Yellow
+$yellow-60: #5c4818;
+$yellow-50: #8b6d27;
+$yellow-40: #c9a447;
+$yellow-30: #f3c96c;
+$yellow-20: #fae1a3;
+$yellow-10: #fdf3d9;
+$yellow-00: #fffcf5;
+
+// Red
+$red-60: #60191a;
+$red-50: #881c1f;
+$red-40: #b62226;
+$red-30: #da3336;
+$red-20: #e26567;
+$red-10: #f4abab;
+$red-00: #fce8e8;
+
+// Grey
+$grey-40: #2E2E2E;
+$grey-30: #595959;
+$grey-20: #888888;
+$grey-10: #BABABA;
+$grey-00: #EFEFEF;
+
+/*
+ *  BOOTSTRAP OVERRIDES
+ */
+
+$primary: #1d9a7c;
+
+/*
+ *  UI
+ */
+$radius: 15px;
+
+$font-primary: "Lato", sans-serif;
+$font-secondary: "Lato", sans-serif;
+
+$shadow: 0 5px 15px rgba(0,0,0,.08);
+$shadow-hover: 0 15px 25px rgba(0,0,0,0.09);
