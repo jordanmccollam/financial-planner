@@ -3,3 +3,16 @@
 .navbar {
     box-shadow: 0px 2px 10px $shadow-color;
 }
+
+.navbar-dropdown {
+    button {
+        width: 30vw !important;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .dropdown-btn {
+        display: block;
+        border: none;
+    }
+}

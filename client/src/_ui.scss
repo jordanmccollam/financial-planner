@@ -1,8 +1,18 @@
-input {
-  border: 1px solid $blue-10;
-  font-size: $text-02;
-  color: $blue-20;
-  padding: $space-00;
-  margin-top: $space-01;
-  min-width: 350px;
+@import "variables";
+
+.btn-outline-primary {
+    color: $primary !important;
+}
+.btn-outline-primary:hover {
+    color: $light !important;
+}
+
+button {
+    color: $light !important;
+    font-weight: 300 !important;
+}
+button:focus,
+button:hover,
+button:active {
+    box-shadow: none !important;
 }
