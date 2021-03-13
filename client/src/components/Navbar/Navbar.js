@@ -13,7 +13,7 @@ const CustomNav = (props) => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Dropdown className="navbar-dropdown ml-auto">
-          <Dropdown.Toggle variant="success" id="dropdown-basic">
+          <Dropdown.Toggle variant="outline-primary">
             *Active Sheet*
           </Dropdown.Toggle>
 

@@ -10,8 +10,8 @@ const Home = (props) => {
     <div className="home">
       <Row>
         <Col lg={5}>
-          <Card className="full" >
-
+          <Card className="full" title="Expenses" >
+            <h5 className="border-bottom-custom" style={{width: 'min-content'}}>Expenses</h5>
           </Card>
         </Col>
         <Col >

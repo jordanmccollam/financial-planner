@@ -3,8 +3,15 @@
 .btn-outline-primary {
     color: $primary !important;
 }
-.btn-outline-primary:hover {
+.btn-outline-primary:focus {
+    background-color: $green-50;
     color: $light !important;
+    border-radius: $radius !important;
+}
+.btn-outline-primary:hover {
+    background-color: $green-50 !important;
+    color: $light !important;
+    border-radius: $radius !important;
 }
 
 button {
@@ -15,4 +22,8 @@ button:focus,
 button:hover,
 button:active {
     box-shadow: none !important;
+}
+
+.border-bottom-custom {
+    border-bottom: 1px solid $green-60 !important;
 }

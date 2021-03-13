@@ -9,7 +9,7 @@
 }
 
 .App {
-  background: $green-40;
+  background: linear-gradient(to right, #41e48b, #2ad0ab);
   height: 100vh;
   margin: 0px;
   padding: 0px;
@@ -18,3 +18,7 @@
 @import "./screens/Home/home.scss";
 @import "./components/Navbar/navbar.scss";
 @import "./components/Card/card.scss";
+
+// #fefbf6 whiteish
+// #a0d683 primary
+// #045157 secondary
