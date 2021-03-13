@@ -1,10 +1,10 @@
-import TooltipBtn from "./TooltipBtn/TooltipBtn";
+import Tooltip from "./Tooltip/Tooltip";
 import Card from "./Card/Card";
 import Navbar from "./Navbar/Navbar";
 
 
 export {
-  TooltipBtn,
+  Tooltip,
   Card,
   Navbar,
     

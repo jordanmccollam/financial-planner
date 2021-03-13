@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Card, TooltipBtn } from '../../components';
+import { Card, Tooltip } from '../../components';
 import { Row, Col, Button } from 'react-bootstrap';
 
 const logger = "Sheet";
@@ -9,13 +9,13 @@ const Sheet = (props) => {
   return (
     <div className="sheet">
       <Row>
-        <Col lg={5}>
+        <Col lg={4}>
           <Card className="full" title="Expenses" >
             <div className="d-flex justify-content-between" style={{width: '100%'}}>
               <h5 className="border-bottom-custom" style={{width: 'min-content'}}>Expenses</h5>
-              <TooltipBtn id="test" message="Add Expense" >
+              <Tooltip id="test" message="Add Expense" >
                 <Button className="px-3 py-0" >+</Button>
-              </TooltipBtn>
+              </Tooltip>
             </div>
           </Card>
         </Col>
