@@ -37,7 +37,7 @@ const Expenses = (props) => {
 			handler: addHandler,
 		},
 		{
-			title: 'Delete Expense(s)',
+			title: 'Delete Expenses',
 			icon: <BiMinus />,
 			type: 'multi', // single, multi, global?
 			handler: deleteHandler,
