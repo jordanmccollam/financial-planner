@@ -87,8 +87,8 @@ const Table = (props) => {
         </Col>
       </Row>
 
+      {/* TABLE LABELS */}
       <Row className="border-bottom align-items-center">
-        {/* TABLE LABELS */}
         <Col xs={2} className="p-0 d-flex justify-content-center">
           <Tooltip id={'table-select-tooltip'} message={'Select All'} className="pl-0" >
             <Button onClick={toggleSelectAll} variant="outline-primary" className="table-label btn-sm">{selected.length > 0 ? 'Unselect' : 'Select'}</Button>
