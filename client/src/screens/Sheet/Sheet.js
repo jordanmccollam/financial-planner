@@ -122,6 +122,18 @@ const Sheet = (props) => {
               </Card>
             </Col>
           </Row>
+
+          <Row>
+            <Col>
+              <Card>
+                <h5 className="title">Tips</h5>
+                <ul>
+                  <li className="mb-2">Hover over the numbers above to see how much of it may be estimated</li>
+                  <li className="mb-2">Try selecting items from the expenses table to see what actions are available</li>
+                </ul>
+              </Card>
+            </Col>
+          </Row>
         </Col>
       </Row>
     </div>
