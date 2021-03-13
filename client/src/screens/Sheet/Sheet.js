@@ -10,7 +10,7 @@ const Sheet = (props) => {
   return (
     <div className="sheet">
       <Row>
-        <Col lg={4}>
+        <Col lg={5}>
           <Card className="full" title="Expenses" >
             <Expenses />
           </Card>
