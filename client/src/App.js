@@ -9,7 +9,7 @@ function App() {
         <Comp.Navbar />
         <Row className="p-3">
           <Col>
-            <Screens.Home />
+            <Screens.Sheet />
           </Col>
         </Row>
       </Container>

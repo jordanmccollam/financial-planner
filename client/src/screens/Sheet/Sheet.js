@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Card } from '../../components';
 import { Row, Col } from 'react-bootstrap';
 
-const logger = "Home";
+const logger = "Sheet";
 
-const Home = (props) => {
+const Sheet = (props) => {
 
   return (
-    <div className="home">
+    <div className="sheet">
       <Row>
         <Col lg={5}>
           <Card className="full" title="Expenses" >
@@ -27,6 +27,6 @@ const Home = (props) => {
   )
 }
 
-export default Home;
+export default Sheet;
 
 
