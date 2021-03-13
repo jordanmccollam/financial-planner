@@ -1,0 +1,26 @@
+@import "//variables";
+
+.table {
+    .col {
+        padding-left: 3px;
+        padding-right: 3px;
+    }
+}
+
+.table-label {
+    font-size: $text--1;
+    color: $green-60;
+    font-weight: 600;
+}
+
+.table-col {
+    font-size: $text-00;
+    // color: $green-60;
+}
+
+.table-row:hover {
+    box-shadow: 1px 1px 1px $shadow-color;
+    border-radius: $radius;
+    cursor: pointer;
+    transform: .2s;
+}

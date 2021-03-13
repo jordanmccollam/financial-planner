@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Card, Tooltip } from '../../components';
 import { Row, Col, Button } from 'react-bootstrap';
+import Expenses from './Expenses';
 
-const logger = "Sheet";
+const logger = "Sheet:: ";
 
 const Sheet = (props) => {
 
@@ -11,12 +12,7 @@ const Sheet = (props) => {
       <Row>
         <Col lg={4}>
           <Card className="full" title="Expenses" >
-            <div className="d-flex justify-content-between" style={{width: '100%'}}>
-              <h5 className="border-bottom-custom" style={{width: 'min-content'}}>Expenses</h5>
-              <Tooltip id="test" message="Add Expense" >
-                <Button className="px-3 py-0" >+</Button>
-              </Tooltip>
-            </div>
+            <Expenses />
           </Card>
         </Col>
         <Col >
