@@ -19,7 +19,7 @@ const testExpenses = [
     label: 'Power',
     amount: 150,
     autopay: true,
-    estimated: false,
+    estimated: true,
     repeat: 1, // once a month
     date: '28'
   },
@@ -69,6 +69,14 @@ const Sheet = (props) => {
     return total;
   }
 
+  const getCurrentBalanceEstimated = () => {
+    let total = 0;
+    testExpenses.filter(e => e.estimated && parseInt(e.date) <= parseInt(moment(new Date()).format('DD'))).forEach(expense => {
+      total += expense.amount;
+    })
+    return total;
+  }
+
   return (
     <div className="sheet">
       <Row>
@@ -83,7 +91,9 @@ const Sheet = (props) => {
             <Col className="mb-3">
               <Card className="d-flex flex-column align-items-center">
                 <h5 className="title">Current Balance</h5>
-                <h3>{getCurrentBalance()}</h3>
+                <Tooltip id="current-balance-estimated" message={`${getCurrentBalanceEstimated()}/${getCurrentBalance()} is estimated`} place="bottom" >
+                  <h3>{getCurrentBalance()}</h3>
+                </Tooltip>
               </Card>
             </Col>
             <Col xs={4} className="mb-3">
