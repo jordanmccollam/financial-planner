@@ -89,9 +89,10 @@ const Table = (props) => {
 
       {/* TABLE LABELS */}
       <Row className="border-bottom align-items-center">
-        <Col xs={2} className="p-0 d-flex justify-content-center">
+        <Col xs={1} className="p-0 d-flex justify-content-center">
           <Tooltip id={'table-select-tooltip'} message={'Select All'} className="pl-0" >
-            <Button onClick={toggleSelectAll} variant="outline-primary" className="table-label btn-sm">{selected.length > 0 ? 'Unselect' : 'Select'}</Button>
+            <Button variant="transparent" onClick={toggleSelectAll} className="table-col text-primary">{selected.length > 0 ? <BsCheckBox size={16} className="text-primary" /> : <BsSquare size={13} />}</Button>
+            {/* <Button onClick={toggleSelectAll} variant="outline-primary" className="table-label btn-sm">{selected.length > 0 ? 'Unselect' : 'Select'}</Button> */}
           </Tooltip>
         </Col>
         {(data && columns) ? columns.map((col, index) => {
@@ -107,7 +108,7 @@ const Table = (props) => {
       {(data && columns) ? data.slice(0, 10).map((row, rowIndex) => {
         return (
           <Row key={`table-row-${rowIndex}`} className={`py-2 border-bottom table-row align-items-center ${selected.includes(row) && 'bg-selected'}`} onClick={() => selectRow(row)}>
-            <Col xs={2} className="d-flex justify-content-center">
+            <Col xs={1} className="d-flex justify-content-center">
               <div className="table-col">{selected.includes(row) ? <BsCheckBox size={16} className="text-primary" /> : <BsSquare size={13} />}</div>
             </Col>
             {columns.map((el, index) => {
