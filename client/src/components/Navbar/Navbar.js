@@ -8,7 +8,7 @@ const CustomNav = (props) => {
   const { children, className } = props;
 
   return (
-    <Navbar className={`${className} navbar`} bg="light" expand="lg">
+    <Navbar className={`${className} navbar px-5`} bg="light" expand="lg">
       <Navbar.Brand href="#home" className="heading-05">Financial Planner <GiTakeMyMoney size={30}/></Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">

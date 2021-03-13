@@ -5,7 +5,7 @@ import * as Comp from './components';
 function App() {
   return (
     <div className="App">
-      <Container fluid className="p-0" style={{overflow: 'hidden'}}>
+      <Container fluid className="px-0" style={{overflow: 'hidden'}}>
         <Comp.Navbar />
         <Row className="p-3">
           <Col>
