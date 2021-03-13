@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Button, Container } from 'react-bootstrap';
 import { Tooltip } from '../index';
-import { BiCheck, BiX } from 'react-icons/bi';
+import { BiCheck, BiX, BiCheckbox } from 'react-icons/bi';
+import { BsCheckBox, BsSquare } from 'react-icons/bs';
 
 const logger = "Table:: ";
 
@@ -10,8 +11,10 @@ const Table = (props) => {
     children, className,
     columns,
     data,
-    title
+    title,
+    actions
   } = props;
+  const [ selected, setSelected ] = useState([]);
 
   const renderElement = (el, row) => {
     if (row && el) {
@@ -44,19 +47,53 @@ const Table = (props) => {
     } else return '-';
   }
 
+  const selectRow = (row) => {
+    if (selected.includes(row)) {
+      setSelected(old => old.filter(o => o !== row));
+    } else {
+      setSelected(old => [...old, row]);
+    }
+  }
+
+  const toggleSelectAll = () => {
+    if (selected.length === 0) {
+      setSelected(data);
+    } else {
+      setSelected([]);
+    }
+  }
+
   return (
     <Container className={`${className} table`}>
       <Row>
         <Col xs={12} className="d-flex justify-content-between mb-3 px-0">
             <h5 className="border-bottom-custom" style={{width: 'max-content'}}>{title ? title : 'Table Title'}</h5>
-            <Tooltip id="test" message="Add Expense" >
-                <Button className="px-3 py-0" >+</Button>
-            </Tooltip>
+            <div className="d-flex">
+              {(selected.length > 0 && actions) && actions.filter(a => a.type && a.type === 'multi').map((action, index) => {
+                return (
+                  <Tooltip key={`table-action-${index}`} id={action.title ? action.title : 'Action!'} message={action.title ? action.title : 'Action!'} >
+                    <Button onClick={action.handler ? action.handler : () => console.log(logger + "Action!")} className="px-3 py-0 ml-1" >{action.icon ? action.icon : '?'}</Button>
+                  </Tooltip>
+                )
+              })}
+              {actions && actions.filter(a => a.type && a.type === 'global').map((action, index) => {
+                return (
+                  <Tooltip key={`table-action-${index}`} id={action.title ? action.title : 'Action!'} message={action.title ? action.title : 'Action!'} >
+                    <Button onClick={action.handler ? action.handler : () => console.log(logger + "Action!")} className="px-3 py-0 ml-1" >{action.icon ? action.icon : '?'}</Button>
+                  </Tooltip>
+                )
+              })}
+            </div>
         </Col>
       </Row>
 
-      <Row className="border-bottom">
+      <Row className="border-bottom align-items-center">
         {/* TABLE LABELS */}
+        <Col xs={2} className="p-0 d-flex justify-content-center">
+          <Tooltip id={'table-select-tooltip'} message={'Select All'} className="pl-0" >
+            <Button onClick={toggleSelectAll} variant="outline-primary" className="table-label btn-sm">{selected.length > 0 ? 'Unselect' : 'Select'}</Button>
+          </Tooltip>
+        </Col>
         {(data && columns) ? columns.map((col, index) => {
           return (
             <Col key={`table-label-${index}`}>
@@ -67,9 +104,12 @@ const Table = (props) => {
       </Row>
 
       {/* TABLE ROWS */}
-      {(data && columns) ? data.map((row, rowIndex) => {
+      {(data && columns) ? data.slice(0, 10).map((row, rowIndex) => {
         return (
-          <Row key={`table-row-${rowIndex}`} className="py-2 border-bottom table-row">
+          <Row key={`table-row-${rowIndex}`} className={`py-2 border-bottom table-row align-items-center ${selected.includes(row) && 'bg-selected'}`} onClick={() => selectRow(row)}>
+            <Col xs={2} className="d-flex justify-content-center">
+              <div className="table-col">{selected.includes(row) ? <BsCheckBox size={16} className="text-primary" /> : <BsSquare size={13} />}</div>
+            </Col>
             {columns.map((el, index) => {
               return (
                 <Col key={`table-element-${index}`}>

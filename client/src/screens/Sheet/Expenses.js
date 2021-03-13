@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Card, Tooltip, Table } from '../../components';
 import { Row, Col, Button } from 'react-bootstrap';
+import { BiPlus, BiMinus } from 'react-icons/bi';
 
 const logger = "Sheet/Expenses:: ";
 
@@ -29,9 +30,31 @@ const Expenses = (props) => {
         { label: 'label' },
         { label: 'amount' },
         { label: 'autopay' },
-        { label: 'estimated' },
+        // { label: 'estimated' },
         { label: 'date' },
     ];
+
+    const addHandler = () => {
+        console.log(logger + "addHandler");
+    }
+    const deleteHandler = () => {
+        console.log(logger + "deleteHandler");
+    }
+
+	const actions = [
+		{
+			title: 'Add Expenses',
+			icon: <BiPlus />,
+			type: 'global', // single, multi, global?
+			handler: addHandler
+		},
+		{
+			title: 'Delete Expenses',
+			icon: <BiMinus />,
+			type: 'multi', // single, multi, global?
+			handler: deleteHandler
+		},
+	]
 
     return (
         <Row>
@@ -40,6 +63,7 @@ const Expenses = (props) => {
                     title="Expenses"
                     data={testExpenses}
                     columns={columns}
+                    actions={actions}
                 />
             </Col>
         </Row>
