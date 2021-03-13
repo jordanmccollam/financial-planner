@@ -7,11 +7,21 @@
     background-color: $green-50;
     color: $light !important;
     border-radius: $radius !important;
+    border-color: $green-50 !important;
 }
 .btn-outline-primary:hover {
     background-color: $green-50 !important;
     color: $light !important;
     border-radius: $radius !important;
+    border-color: $green-50 !important;
+}
+.btn-primary {
+    background-color: $green-50 !important;
+    border-color: $green-50 !important;
+}
+.btn-primary:hover {
+    background-color: $green-60 !important;
+    border-color: $green-60 !important;
 }
 
 button {

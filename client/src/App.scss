@@ -9,17 +9,14 @@
 }
 
 .App {
-  background: linear-gradient(to right, #41e48b, #2ad0ab);
+  background: linear-gradient(to right, #41e48b, $green-40);
   height: 100vh;
   margin: 0px;
   padding: 0px;
+  color: red;
 }
 
-@import "./screens/Home/home.scss";
 @import "./components/Navbar/navbar.scss";
 @import "./components/Card/card.scss";
-
-// #fefbf6 whiteish
-// #a0d683 primary
-// #045157 secondary
 @import "./screens/Sheet/sheet.scss";
+@import "./components/TooltipBtn/custom-tooltip.scss";
