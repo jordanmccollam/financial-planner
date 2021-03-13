@@ -5,11 +5,11 @@ import ReactTooltip from 'react-tooltip';
 const logger = "TooltipBtn";
 
 const CustomTooltip = (props) => {
-  const { children, className, id, type, message } = props;
+  const { children, className, id, type, message, place } = props;
 
   return (
     <div>
-      <div className={`${className} custom-tooltip`} data-tip data-for={id}>
+      <div className={`${className} custom-tooltip`} data-tip data-for={id} data-place={place ? place : 'top'}>
         {children}
       </div>
       <ReactTooltip id={id} type={type} effect="solid" backgroundColor="#f8f9fa">

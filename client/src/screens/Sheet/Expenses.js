@@ -15,7 +15,7 @@ const Expenses = (props) => {
         { label: 'label' },
         { label: 'amount' },
         { label: 'autopay' },
-        // { label: 'estimated' },
+        { label: 'Est.', accessor: 'estimated' },
         { label: 'date' },
     ];
 

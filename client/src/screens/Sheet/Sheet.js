@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Card, Tooltip } from '../../components';
 import { Row, Col, Button } from 'react-bootstrap';
 import Expenses from './Expenses';
+import moment from 'moment';
 
 const logger = "Sheet:: ";
 
@@ -10,7 +11,7 @@ const testExpenses = [
     label: 'Rent',
     amount: 1280,
     autopay: false,
-    estimated: true,
+    estimated: false,
     repeat: 1, // once a month
     date: '01'
   },
@@ -26,11 +27,35 @@ const testExpenses = [
 
 const Sheet = (props) => {
 
-  const renderTotal = () => {
-    var total = 0;
+  const renderMonthlyExpenses = () => {
+    let total = 0;
     testExpenses.forEach(expense => {
       total += expense.amount;
     });
+    return total;
+  }
+
+  const renderTodaysExpenses = () => {
+    let total = 0;
+    testExpenses.filter(e => e.date === moment(new Date()).format('DD')).forEach(expense => {
+      total += expense.amount;
+    })
+    return total;
+  }
+
+  const renderTodaysEstimated = () => {
+    let total = 0;
+    testExpenses.filter(e => e.estimated && e.date === moment(new Date()).format('DD')).forEach(expense => {
+      total += expense.amount;
+    })
+    return total;
+  }
+
+  const renderMonthlyEstimated = () => {
+    let total = 0;
+    testExpenses.filter(e => e.estimated).forEach(expense => {
+      total += expense.amount;
+    })
     return total;
   }
 
@@ -43,22 +68,25 @@ const Sheet = (props) => {
           </Card>
         </Col>
         <Col>
-          <Card>
-            <Row>
-              <Col className="d-flex flex-column align-items-center">
-                  <h5 className="title">Monthly Expenses</h5>
-                  <h3 className="text-danger">-{renderTotal()}</h3>
-              </Col>
-              <Col className="d-flex flex-column align-items-center">
-                  <h5 className="title">Monthly Expenses</h5>
-                  <h3 className="text-danger">-{renderTotal()}</h3>
-              </Col>
-              <Col className="d-flex flex-column align-items-center">
-                  <h5 className="title">Monthly Expenses</h5>
-                  <h3 className="text-danger">-{renderTotal()}</h3>
-              </Col>
-            </Row>
-          </Card>
+
+          <Row>
+            <Col>
+              <Card className="d-flex flex-column align-items-center">
+                <h5 className="title">Today</h5>
+                <Tooltip id="todays-estimated" message={`${renderTodaysEstimated()}/${renderTodaysExpenses()} is estimated`} place="bottom" >
+                  <h3 className={renderTodaysExpenses() === 0 ? "text-primary" : "text-danger"}>-{renderTodaysExpenses()}</h3>
+                </Tooltip>
+              </Card>
+            </Col>
+            <Col>
+              <Card className="d-flex flex-column align-items-center">
+                <h5 className="title">Monthly</h5>
+                <Tooltip id="monthly-estimated" message={`${renderMonthlyEstimated()}/${renderMonthlyExpenses()} is estimated`} place="bottom" >
+                  <h3 className={renderMonthlyExpenses() === 0 ? "text-primary" : "text-danger"}>-{renderMonthlyExpenses()}</h3>
+                </Tooltip>
+              </Card>
+            </Col>
+          </Row>
         </Col>
       </Row>
     </div>
