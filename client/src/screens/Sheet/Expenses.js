@@ -26,29 +26,18 @@ const testExpenses = [
 const Expenses = (props) => {
 
     const columns = [
-        {
-            label: 'label',
-            // accessor: 'label'
-            // customCol: (el) => {
-            //     return <div>{el.label}</div>;
-            // }
-        },
-        {
-            label: 'amount',
-        }
+        { label: 'label' },
+        { label: 'amount' },
+        { label: 'autopay' },
+        { label: 'estimated' },
+        { label: 'date' },
     ];
 
     return (
         <Row>
-            <Col xs={12} className="d-flex justify-content-between mb-3">
-                <h5 className="border-bottom-custom" style={{width: 'min-content'}}>Expenses</h5>
-                <Tooltip id="test" message="Add Expense" >
-                    <Button className="px-3 py-0" >+</Button>
-                </Tooltip>
-            </Col>
-
-            <Col className="px-0">
+            <Col>
                 <Table  
+                    title="Expenses"
                     data={testExpenses}
                     columns={columns}
                 />
