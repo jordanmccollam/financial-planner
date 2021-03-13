@@ -72,14 +72,14 @@ const Table = (props) => {
               {(selected.length > 0 && actions) && actions.filter(a => a.type && a.type === 'multi').map((action, index) => {
                 return (
                   <Tooltip key={`table-action-${index}`} id={action.title ? action.title : 'Action!'} message={action.title ? action.title : 'Action!'} >
-                    <Button onClick={action.handler ? action.handler : () => console.log(logger + "Action!")} className="px-3 py-0 ml-1" >{action.icon ? action.icon : '?'}</Button>
+                    <Button variant={action.variant ? action.variant : 'primary'} onClick={action.handler ? action.handler : () => console.log(logger + "Action!")} className="px-3 py-0 ml-1" >{action.icon ? action.icon : '?'}</Button>
                   </Tooltip>
                 )
               })}
               {actions && actions.filter(a => a.type && a.type === 'global').map((action, index) => {
                 return (
                   <Tooltip key={`table-action-${index}`} id={action.title ? action.title : 'Action!'} message={action.title ? action.title : 'Action!'} >
-                    <Button onClick={action.handler ? action.handler : () => console.log(logger + "Action!")} className="px-3 py-0 ml-1" >{action.icon ? action.icon : '?'}</Button>
+                    <Button variant={action.variant ? action.variant : 'primary'} onClick={action.handler ? action.handler : () => console.log(logger + "Action!")} className="px-3 py-0 ml-1" >{action.icon ? action.icon : '?'}</Button>
                   </Tooltip>
                 )
               })}

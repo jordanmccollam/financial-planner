@@ -46,13 +46,14 @@ const Expenses = (props) => {
 			title: 'Add Expenses',
 			icon: <BiPlus />,
 			type: 'global', // single, multi, global?
-			handler: addHandler
+			handler: addHandler,
 		},
 		{
 			title: 'Delete Expenses',
 			icon: <BiMinus />,
 			type: 'multi', // single, multi, global?
-			handler: deleteHandler
+			handler: deleteHandler,
+            variant: 'danger'
 		},
 	]
 
