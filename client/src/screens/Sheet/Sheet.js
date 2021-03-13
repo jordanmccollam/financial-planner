@@ -70,7 +70,22 @@ const Sheet = (props) => {
         <Col>
 
           <Row>
-            <Col>
+            <Col className="mb-3">
+              <Card className="d-flex flex-column align-items-center">
+                <h5 className="title">Current Balance</h5>
+                <h3>4005</h3>
+              </Card>
+            </Col>
+            <Col xs={4} className="mb-3">
+              <Card className="d-flex flex-column align-items-center">
+                <h5 className="title">Monthly Balance</h5>
+                <h3>4005</h3>
+              </Card>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col xs={4} className="mb-3">
               <Card className="d-flex flex-column align-items-center">
                 <h5 className="title">Today</h5>
                 <Tooltip id="todays-estimated" message={`${renderTodaysEstimated()}/${renderTodaysExpenses()} is estimated`} place="bottom" >
@@ -78,7 +93,7 @@ const Sheet = (props) => {
                 </Tooltip>
               </Card>
             </Col>
-            <Col>
+            <Col className="mb-3">
               <Card className="d-flex flex-column align-items-center">
                 <h5 className="title">Monthly</h5>
                 <Tooltip id="monthly-estimated" message={`${renderMonthlyEstimated()}/${renderMonthlyExpenses()} is estimated`} place="bottom" >
