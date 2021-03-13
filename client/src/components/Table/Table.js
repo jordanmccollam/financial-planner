@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Row, Col, Button, Container } from 'react-bootstrap';
 import { Tooltip } from '../index';
 import { BiCheck, BiX, BiCheckbox } from 'react-icons/bi';
-import { BsCheckBox, BsSquare } from 'react-icons/bs';
+import { BsCheckBox, BsSquare, BsDashSquare } from 'react-icons/bs';
 
 const logger = "Table:: ";
 
@@ -63,16 +63,33 @@ const Table = (props) => {
     }
   }
 
+  const handleMultiAction = (handler) => {
+    if (handler) {
+      for (var i = 0; i < selected.length - 1; i++) {
+        handler(selected[i]);
+      }
+    } else {
+      console.log(logger + 'Action!');
+    }
+  }
+
   return (
     <Container className={`${className} table`}>
       <Row>
         <Col xs={12} className="d-flex justify-content-between mb-3 px-0">
-            <h5 className="border-bottom-custom" style={{width: 'max-content'}}>{title ? title : 'Table Title'}</h5>
+            <h5 className="title">{title ? title : 'Table Title'}</h5>
             <div className="d-flex">
+              {(selected.length === 1) && actions.filter(a => a.type && a.type === 'single').map((action, index) => {
+                return (
+                  <Tooltip key={`table-action-${index}`} id={action.title ? action.title : 'Action!'} message={action.title ? action.title : 'Action!'} >
+                    <Button variant={action.variant ? action.variant : 'primary'} onClick={() => handleMultiAction(action.handler)} className="px-3 py-0 ml-1" >{action.icon ? action.icon : '?'}</Button>
+                  </Tooltip>
+                )
+              })}
               {(selected.length > 0 && actions) && actions.filter(a => a.type && a.type === 'multi').map((action, index) => {
                 return (
                   <Tooltip key={`table-action-${index}`} id={action.title ? action.title : 'Action!'} message={action.title ? action.title : 'Action!'} >
-                    <Button variant={action.variant ? action.variant : 'primary'} onClick={action.handler ? action.handler : () => console.log(logger + "Action!")} className="px-3 py-0 ml-1" >{action.icon ? action.icon : '?'}</Button>
+                    <Button variant={action.variant ? action.variant : 'primary'} onClick={() => handleMultiAction(action.handler)} className="px-3 py-0 ml-1" >{action.icon ? action.icon : '?'}</Button>
                   </Tooltip>
                 )
               })}
@@ -91,7 +108,7 @@ const Table = (props) => {
       <Row className="border-bottom align-items-center">
         <Col xs={1} className="p-0 d-flex justify-content-center">
           <Tooltip id={'table-select-tooltip'} message={'Select All'} className="pl-0" >
-            <Button variant="transparent" onClick={toggleSelectAll} className="table-col text-primary">{selected.length > 0 ? <BsCheckBox size={16} className="text-primary" /> : <BsSquare size={13} />}</Button>
+            <Button variant="transparent" onClick={toggleSelectAll} className="table-col text-primary">{selected.length > 0 ? <BsDashSquare size={13} /> : <BsSquare size={13} />}</Button>
             {/* <Button onClick={toggleSelectAll} variant="outline-primary" className="table-label btn-sm">{selected.length > 0 ? 'Unselect' : 'Select'}</Button> */}
           </Tooltip>
         </Col>

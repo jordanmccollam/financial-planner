@@ -2,29 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Card, Tooltip, Table } from '../../components';
 import { Row, Col, Button } from 'react-bootstrap';
 import { BiPlus, BiMinus } from 'react-icons/bi';
+import { MdEdit } from 'react-icons/md';
 
 const logger = "Sheet/Expenses:: ";
 
-const testExpenses = [
-  {
-    label: 'Rent',
-    amount: 1280,
-    autopay: false,
-    estimated: true,
-    repeat: 1, // once a month
-    date: '01'
-  },
-  {
-    label: 'Power',
-    amount: 150,
-    autopay: true,
-    estimated: false,
-    repeat: 1, // once a month
-    date: '28'
-  },
-]
-
 const Expenses = (props) => {
+    const {
+        expenses
+    } = props;
 
     const columns = [
         { label: 'label' },
@@ -40,6 +25,9 @@ const Expenses = (props) => {
     const deleteHandler = () => {
         console.log(logger + "deleteHandler");
     }
+    const editHandler = () => {
+        console.log(logger + "editHandler");
+    }
 
 	const actions = [
 		{
@@ -49,11 +37,17 @@ const Expenses = (props) => {
 			handler: addHandler,
 		},
 		{
-			title: 'Delete Expenses',
+			title: 'Delete Expense(s)',
 			icon: <BiMinus />,
 			type: 'multi', // single, multi, global?
 			handler: deleteHandler,
             variant: 'danger'
+		},
+		{
+			title: 'Edit Expense',
+			icon: <MdEdit />,
+			type: 'single', // single, multi, global?
+			handler: editHandler,
 		},
 	]
 
@@ -62,7 +56,7 @@ const Expenses = (props) => {
             <Col>
                 <Table  
                     title="Expenses"
-                    data={testExpenses}
+                    data={expenses}
                     columns={columns}
                     actions={actions}
                 />

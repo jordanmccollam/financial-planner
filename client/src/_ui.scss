@@ -37,3 +37,8 @@ button:active {
 .border-bottom-custom {
     border-bottom: 1px solid $green-60 !important;
 }
+
+.title {
+    border-bottom: 1px solid $green-60 !important;
+    width: max-content;
+}

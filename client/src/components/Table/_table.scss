@@ -27,3 +27,18 @@
     cursor: pointer;
     transform: .2s;
 }
+
+.table-row-action {
+    padding: 0px 8px;
+    width: max-content;
+    border-radius: $radius;
+}
+.table-row-action:hover {
+    background-color: $grey-00;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.table-row-action:hover.selected {
+    background-color: $green-10 !important;
+}
