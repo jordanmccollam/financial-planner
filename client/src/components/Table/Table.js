@@ -122,7 +122,7 @@ const Table = (props) => {
       </Row>
 
       {/* TABLE ROWS */}
-      {(data && columns) ? data.slice(0, 10).map((row, rowIndex) => {
+      {(data?.length > 0 && columns) ? data.slice(0, 10).map((row, rowIndex) => {
         return (
           <Row key={`table-row-${rowIndex}`} className={`py-2 border-bottom table-row align-items-center ${selected.includes(row) && 'bg-selected'}`} onClick={() => selectRow(row)}>
             <Col xs={1} className="d-flex justify-content-center">

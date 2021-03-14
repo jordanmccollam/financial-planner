@@ -9,7 +9,6 @@ function App() {
   // const { loginWithRedirect, logout, user, getAccessTokenSilently } = useAuth0();
   const [ theme, setTheme ] = useState('theme--light');
   const [ dbUser, setDbUser ] = useState(null);
-  const [ token, setToken ] = useState(null);
   const [ user, setUser ] = useState({email: 'jordy.mccollam@gmail.com'});
   // const [ user, setUser ] = useState(null);
 
@@ -29,7 +28,7 @@ function App() {
         createUser(_token);
       } else {
         setTheme(res.data.output.theme);
-        setDbUser(res.data.output);
+        setDbUser({...res.data.output, _token});
       }
     }).catch(e => {
       console.error("connectUserToDb", e);
@@ -50,13 +49,13 @@ function App() {
 
       {dbUser ? (
         <Container fluid className="px-0" style={{overflow: 'hidden'}}>
-          <Comp.Navbar />
+          <Comp.Navbar user={dbUser} />
           <Row className="p-3">
             <Col>
               {dbUser.currentSheet ? (
-                <Screens.Sheet />
+                <Screens.Sheet user={dbUser} />
               ) : (
-                <Screens.CreateSheet />
+                <Screens.CreateSheet user={dbUser} />
               )}
             </Col>
           </Row>

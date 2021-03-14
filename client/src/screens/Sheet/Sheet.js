@@ -25,13 +25,12 @@ const testExpenses = [
   },
 ]
 
-const totalBalance = 4005;
-
 const Sheet = (props) => {
+  const { user } = props;
 
   const getMonthlyExpenses = () => {
     let total = 0;
-    testExpenses.forEach(expense => {
+    user.expenses.forEach(expense => {
       total += expense.amount;
     });
     return total;
@@ -39,7 +38,7 @@ const Sheet = (props) => {
 
   const getTodaysExpenses = () => {
     let total = 0;
-    testExpenses.filter(e => e.date === moment(new Date()).format('DD')).forEach(expense => {
+    user.expenses.filter(e => e.date === moment(new Date()).format('DD')).forEach(expense => {
       total += expense.amount;
     })
     return total;
@@ -47,7 +46,7 @@ const Sheet = (props) => {
 
   const getTodaysEstimated = () => {
     let total = 0;
-    testExpenses.filter(e => e.estimated && e.date === moment(new Date()).format('DD')).forEach(expense => {
+    user.expenses.filter(e => e.estimated && e.date === moment(new Date()).format('DD')).forEach(expense => {
       total += expense.amount;
     })
     return total;
@@ -55,15 +54,15 @@ const Sheet = (props) => {
 
   const getMonthlyEstimated = () => {
     let total = 0;
-    testExpenses.filter(e => e.estimated).forEach(expense => {
+    user.expenses.filter(e => e.estimated).forEach(expense => {
       total += expense.amount;
     })
     return total;
   }
 
   const getCurrentBalance = () => {
-    let total = totalBalance;
-    testExpenses.filter(e => parseInt(e.date) <= parseInt(moment(new Date()).format('DD'))).forEach(expense => {
+    let total = user.monthlyEarnings;
+    user.expenses.filter(e => parseInt(e.date) <= parseInt(moment(new Date()).format('DD'))).forEach(expense => {
       total -= expense.amount;
     })
     return total;
@@ -71,7 +70,7 @@ const Sheet = (props) => {
 
   const getCurrentBalanceEstimated = () => {
     let total = 0;
-    testExpenses.filter(e => e.estimated && parseInt(e.date) <= parseInt(moment(new Date()).format('DD'))).forEach(expense => {
+    user.expenses.filter(e => e.estimated && parseInt(e.date) <= parseInt(moment(new Date()).format('DD'))).forEach(expense => {
       total += expense.amount;
     })
     return total;
@@ -82,7 +81,7 @@ const Sheet = (props) => {
       <Row>
         <Col lg={5}>
           <Card className="full" title="Expenses" >
-            <Expenses expenses={testExpenses} />
+            <Expenses expenses={user.expenses} />
           </Card>
         </Col>
         <Col>
@@ -92,14 +91,14 @@ const Sheet = (props) => {
               <Card className="d-flex flex-column align-items-center">
                 <h5 className="title">Current Balance</h5>
                 <Tooltip id="current-balance-estimated" message={`${getCurrentBalanceEstimated()}/${getCurrentBalance()} is estimated`} place="bottom" >
-                  <h3>{getCurrentBalance()}</h3>
+                  <h3>{getCurrentBalance() ?? 0}</h3>
                 </Tooltip>
               </Card>
             </Col>
             <Col xs={4} className="mb-3">
               <Card className="d-flex flex-column align-items-center">
                 <h5 className="title">Monthly Balance</h5>
-                <h3>{totalBalance}</h3>
+                <h3>{user.monthlyEarnings ?? 0}</h3>
               </Card>
             </Col>
           </Row>
