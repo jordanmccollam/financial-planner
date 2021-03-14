@@ -11,6 +11,7 @@ function App() {
   const [ dbUser, setDbUser ] = useState(null);
   const [ token, setToken ] = useState(null);
   const [ user, setUser ] = useState({email: 'jordy.mccollam@gmail.com'});
+  // const [ user, setUser ] = useState(null);
 
   useEffect(() => {
     if (user) {
@@ -58,7 +59,10 @@ function App() {
         </Container>
       ) : (
         <Container>
-          <div className="text-center"><Spinner animation="border" /></div>
+          <div className="text-center full d-flex flex-column justify-content-center align-items-center">
+            <Spinner animation="border" variant="light" style={{height: 100, width: 100}} />
+            <h5 className="text-light mt-4">Please wait while we load your data...</h5>
+          </div>
         </Container>
       )}
     </div>
