@@ -157,7 +157,7 @@ const Table = (props) => {
         <Col xs={12} className="center mt-3">
           <div onClick={() => page !== 0 ? setPage(page-(size ? size : defaultSize)) : console.log(logger + 'Already on page 1')} className="clear-btn"><IoIosArrowBack/></div>
           <div>{Math.ceil(page / (size ? size : defaultSize)) + 1} / {Math.ceil(data.length / (size ? size : defaultSize))}</div>
-          <div onClick={() => page !== data.length - 1 ? setPage(page+(size ? size : defaultSize)) : console.log(logger + 'Already on last page')} className="clear-btn"><IoIosArrowForward/></div>
+          <div onClick={() => ((Math.ceil(page / (size ? size : defaultSize)) + 1) !== (Math.ceil(data.length / (size ? size : defaultSize)))) ? setPage(page+(size ? size : defaultSize)) : console.log(logger + 'Already on last page')} className="clear-btn"><IoIosArrowForward/></div>
         </Col>
       </Row>
     </Container>
