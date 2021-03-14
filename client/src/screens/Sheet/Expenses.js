@@ -36,8 +36,19 @@ const Expenses = (props) => {
         console.log(logger + "addHandler");
         toggleShow();
     }
-    const deleteHandler = () => {
-        console.log(logger + "deleteHandler");
+    const deleteHandler = async (selected) => {
+        console.log(logger + "deleteHandler: target", selected);
+        selected.forEach(el => {
+            apis.deleteExpense(user.token, el._id).then(res => {
+                console.log(logger + "deleteHandler: res", res);
+            }).catch(e => {
+                console.error(logger + 'deleteHandler', e);
+            })
+        });
+        setUser({
+            ...user,
+            expenses: user.expenses.filter(e => !selected.find(s => s._id === e._id))
+        })
     }
     const editHandler = () => {
         console.log(logger + "editHandler");
@@ -105,7 +116,7 @@ const Expenses = (props) => {
     }
 
     const validate = () => {
-        if (newExpense.label && newExpense.amount && newExpense.date && newExpense.repeat) {
+        if (newExpense.label && newExpense.amount > -1 && newExpense.date && newExpense.repeat) {
             return false;
         } else {
             return true;

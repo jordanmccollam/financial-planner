@@ -65,11 +65,9 @@ const Table = (props) => {
 
   const handleMultiAction = (handler) => {
     if (handler) {
-      for (var i = 0; i < selected.length - 1; i++) {
-        handler(selected[i]);
-      }
+      handler(selected);
     } else {
-      console.log(logger + 'Action!');
+      console.log(logger + 'Multi Action!');
     }
   }
 
