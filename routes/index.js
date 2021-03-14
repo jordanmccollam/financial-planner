@@ -2,7 +2,6 @@ const express = require('express');
 
 const ExpenseCtrl = require('../controllers/expense-ctrl');
 const UserCtrl = require('../controllers/user-ctrl');
-const MoodCtrl = require('../controllers/mood-ctrl');
 
 const router = express.Router();
 
