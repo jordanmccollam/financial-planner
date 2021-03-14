@@ -22,6 +22,7 @@ const Expenses = (props) => {
         setUser
     } = props;
     const [ addModal, setAddModal ] = useState(false);
+    const [ editModal, setEditModal ] = useState(false);
     const [ newExpense, setNewExpense ] = useState(initialExpense);
 
     const columns = [
@@ -50,8 +51,10 @@ const Expenses = (props) => {
             expenses: user.expenses.filter(e => !selected.find(s => s._id === e._id))
         })
     }
-    const editHandler = () => {
-        console.log(logger + "editHandler");
+    const editHandler = (el) => {
+        console.log(logger + "editHandler", el);
+        setNewExpense(el);
+        setEditModal(el);
     }
 
 	const actions = [
@@ -101,7 +104,7 @@ const Expenses = (props) => {
         })
     }
 
-    const done = () => {
+    const add = () => {
         apis.createExpense(user.token, {...newExpense, user: user._id}).then(res => {
             console.log(logger + 'createExpense: res ', res);
             setUser({
@@ -113,6 +116,21 @@ const Expenses = (props) => {
         }).catch(e => {
             console.error(logger + 'createExpense', e);
         })
+    }
+
+    const edit = () => {
+        if (newExpense._id) {
+            let _user = JSON.parse(JSON.stringify(user));
+            apis.updateExpense(user.token, newExpense._id, {...newExpense}).then(res => {
+                console.log(logger + 'editExpense: res ', res);
+                _user.expenses.splice(_user.expenses.indexOf(_user.expenses.find(e => e._id === newExpense._id)), 1, res.data.output);
+                setUser(_user);
+                setEditModal(false);
+                setNewExpense(initialExpense);
+            }).catch(e => {
+                console.error(logger + 'editExpense', e);
+            })
+        }
     }
 
     const validate = () => {
@@ -127,7 +145,7 @@ const Expenses = (props) => {
         return (
             <Table  
                 title="Expenses"
-                data={user.expenses}
+                data={user.expenses.sort((a, b) => parseInt(a.date) - parseInt(b.date))}
                 columns={columns}
                 actions={actions}
                 sortAccessor={'date'}
@@ -168,7 +186,36 @@ const Expenses = (props) => {
                     </Col>
                 </Row>
 
-                <Button block onClick={done} disabled={validate()} >Done</Button>
+                <Button block onClick={add} disabled={validate()} >Done</Button>
+            </Modal>
+
+            <Modal title="Edit Expense" show={editModal} setShow={setEditModal} >
+                <Form.Label >Label</Form.Label>
+                <Form.Control placeholder="Ex: Rent" name="label" value={newExpense.label} onChange={onChange} />
+
+                <Row>
+                    <Col lg={4}>
+                        <Form.Label className="mt-3" >Amount</Form.Label>
+                        <Form.Control type="number" name="amount" value={newExpense.amount} onChange={onChange} />
+                    </Col>
+                    <Col>
+                        <Form.Label className="mt-3" >Due Date</Form.Label>
+                        <Form.Control name="date" value={newExpense.date} onChange={onChange} />
+                    </Col>
+                </Row>
+
+                <Row className="text-center mt-3 mb-4">
+                    <Col>
+                        <Form.Label >Autopay</Form.Label>
+                        <div><Checkbox checked={newExpense.autopay} onCheck={() => handleCheck('autopay')} /></div>
+                    </Col>
+                    <Col>
+                        <Form.Label >Estimated</Form.Label>
+                        <div><Checkbox checked={newExpense.estimated} onCheck={() => handleCheck('estimated')} /></div>
+                    </Col>
+                </Row>
+
+                <Button block onClick={edit} disabled={validate()} >Done</Button>
             </Modal>
         </Row>
     )

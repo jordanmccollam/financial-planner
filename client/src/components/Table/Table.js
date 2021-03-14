@@ -21,6 +21,25 @@ const Table = (props) => {
   } = props;
   const [ selected, setSelected ] = useState([]);
   const [ page, setPage ] = useState(0);
+  const [ sliced, setSliced ] = useState([]);
+  const [ searchResults, setSearchResults ] = useState(data? data : []);
+  const [ searchValue, setSearchValue ] = useState('');
+
+  useEffect(() => {
+    reset();
+  }, [data])
+
+  useEffect(() => {
+    setSliced(searchResults.slice(page, (size ? page + size : page + defaultSize)));
+  }, [searchResults, page])
+
+  const reset = () => {
+    setSliced([]);
+    setPage(0);
+    setSelected([]);
+    setSearchValue('');
+    setSearchResults(data ? data : []);
+  }
 
   const renderElement = (el, row) => {
     if (row && el) {
@@ -61,11 +80,23 @@ const Table = (props) => {
     }
   }
 
-  const toggleSelectAll = () => {
-    if (selected.length === 0) {
-      setSelected(data);
+  const toggleSelectAll = (e) => {
+    if (e.shiftKey) {
+      if (selected.length > 0) {
+        setSelected([]);
+      } else {
+        setSelected(searchResults);
+      }
     } else {
-      setSelected([]);
+        if (selected.some(s => sliced.indexOf(s) >= 0)) {
+          setSelected(selected.filter(s => sliced.indexOf(s) < 0));
+        } else {
+          let tmp = selected.filter(s => sliced.indexOf(s) < 0);
+          sliced.forEach(item => {
+              tmp.push(item);
+          });
+          setSelected(tmp);
+        }
     }
   }
 
@@ -75,18 +106,33 @@ const Table = (props) => {
     } else {
       console.log(logger + 'Multi Action!');
     }
+    setSelected([]);
+  }
+
+  const handleSingleAction = (handler) => {
+    if (handler) {
+      handler(selected[0]);
+    } else {
+      console.log(logger + 'Single Action!');
+    }
+    setSelected([]);
   }
 
   return (
     <Container className={`${className} table`}>
       <Row>
         <Col xs={12} className="d-flex justify-content-between mb-3 px-0">
-            <h5 className="title">{title ? title : 'Table Title'}</h5>
+            <div className="center-v">
+              <h5 className="title">{title ? title : 'Table Title'}</h5>
+              {selected.length > 0 && (
+                <div className="ml-3 selected-msg">{selected.length} selected</div>
+              )}
+            </div>
             <div className="d-flex">
               {(selected.length === 1) && actions.filter(a => a.type && a.type === 'single').map((action, index) => {
                 return (
                   <Tooltip key={`table-action-${index}`} id={action.title ? action.title : 'Action!'} message={action.title ? action.title : 'Action!'} >
-                    <Button variant={action.variant ? action.variant : 'primary'} onClick={() => handleMultiAction(action.handler)} className="px-3 py-0 ml-1" >{action.icon ? action.icon : '?'}</Button>
+                    <Button variant={action.variant ? action.variant : 'primary'} onClick={() => handleSingleAction(action.handler)} className="px-3 py-0 ml-1" >{action.icon ? action.icon : '?'}</Button>
                   </Tooltip>
                 )
               })}
@@ -111,7 +157,7 @@ const Table = (props) => {
       {/* TABLE LABELS */}
       <Row className="border-bottom align-items-center">
         <Col xs={1} className="p-0 d-flex justify-content-center">
-          <Tooltip id={'table-select-tooltip'} message={'Select All'} className="pl-0" >
+          <Tooltip id={'table-select-tooltip'} message={`Shift + click to ${selected.length > 0 ? 'UNSELECT' : 'SELECT'} ${selected.length > 0 ? 'ALL' : searchResults.length} items`} className="pl-0" >
             <Button variant="transparent" onClick={toggleSelectAll} className="table-col text-primary">{selected.length > 0 ? <BsDashSquare size={13} /> : <BsSquare size={13} />}</Button>
             {/* <Button onClick={toggleSelectAll} variant="outline-primary" className="table-label btn-sm">{selected.length > 0 ? 'Unselect' : 'Select'}</Button> */}
           </Tooltip>
@@ -127,8 +173,7 @@ const Table = (props) => {
 
       {/* TABLE ROWS */}
       {(data?.length > 0 && columns) ? 
-      (sortAccessor ? data.sort((a, b) => parseInt(a[sortAccessor]) - parseInt(b[sortAccessor])).slice(page, size ? (size + page) : (defaultSize + page)) : data.slice(page, size ? (size + page) : (defaultSize + page)))
-      .map((row, rowIndex) => {
+      sliced.map((row, rowIndex) => {
         return (
           <Row key={`table-row-${rowIndex}`} className={`py-2 border-bottom table-row align-items-center ${selected.includes(row) && 'bg-selected'}`} onClick={() => selectRow(row)}>
             <Col xs={1} className="d-flex justify-content-center">
@@ -152,12 +197,10 @@ const Table = (props) => {
       )}
       
       <Row>
-        {console.log(logger + 'test:: data', data.length)}
-        {console.log(logger + 'test:: page', page)}
         <Col xs={12} className="center mt-3">
           <div onClick={() => page !== 0 ? setPage(page-(size ? size : defaultSize)) : console.log(logger + 'Already on page 1')} className="clear-btn"><IoIosArrowBack/></div>
-          <div>{Math.ceil(page / (size ? size : defaultSize)) + 1} / {Math.ceil(data.length / (size ? size : defaultSize))}</div>
-          <div onClick={() => ((Math.ceil(page / (size ? size : defaultSize)) + 1) !== (Math.ceil(data.length / (size ? size : defaultSize)))) ? setPage(page+(size ? size : defaultSize)) : console.log(logger + 'Already on last page')} className="clear-btn"><IoIosArrowForward/></div>
+          <div>{Math.ceil(page / (size ? size : defaultSize)) + 1} / {Math.ceil(searchResults.length / (size ? size : defaultSize))}</div>
+          <div onClick={() => ((Math.ceil(page / (size ? size : defaultSize)) + 1) !== (Math.ceil(searchResults.length / (size ? size : defaultSize)))) ? setPage(page+(size ? size : defaultSize)) : console.log(logger + 'Already on last page')} className="clear-btn"><IoIosArrowForward/></div>
         </Col>
       </Row>
     </Container>

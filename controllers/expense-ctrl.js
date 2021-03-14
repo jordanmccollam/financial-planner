@@ -74,9 +74,13 @@ updateExpense = async (req, res) => {
                 message: 'Expense not found!',
             })
         }
-        expense.date = body.date
-        // expense.time = body.time
-        expense.content = body.content
+        console.log("EXPENSE", expense);
+        expense.label = body.label ? body.label : expense.label;
+        expense.amount = body.amount ? body.amount : expense.amount;
+        expense.autopay = body.autopay ? body.autopay : false;
+        expense.estimated = body.estimated ? body.estimated : false;
+        expense.repeat = body.repeat ? body.repeat : expense.repeat;
+        expense.date = body.date ? body.date : expense.date;
         expense
             .save()
             .then(() => {
