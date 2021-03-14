@@ -5,7 +5,7 @@ unless_exists: true
 import React, { useState, useEffect } from "react";
 import { Card } from '../../components';
 
-const logger = "<%= name %>";
+const logger = "<%= name %>:: ";
 
 const <%= name %> = (props) => {
 

@@ -53,7 +53,11 @@ function App() {
           <Comp.Navbar />
           <Row className="p-3">
             <Col>
-              <Screens.Sheet />
+              {dbUser.currentSheet ? (
+                <Screens.Sheet />
+              ) : (
+                <Screens.CreateSheet />
+              )}
             </Col>
           </Row>
         </Container>

@@ -30,7 +30,8 @@ button {
 }
 button:focus,
 button:hover,
-button:active {
+button:active,
+input:focus {
     box-shadow: none !important;
 }
 
