@@ -62,26 +62,35 @@ const Sheet = (props) => {
     return total;
   }
 
-  const getTodaysExpenses = () => {
-    let total = 0;
-    user.expenses.filter(e => e.date === moment(new Date()).format('DD')).forEach(expense => {
-      total += expense.amount;
-    })
-    return total;
-  }
-
-  const getTodaysEstimated = () => {
-    let total = 0;
-    user.expenses.filter(e => e.estimated && e.date === moment(new Date()).format('DD')).forEach(expense => {
-      total += expense.amount;
-    })
-    return total;
-  }
-
   const getMonthlyEstimated = () => {
     let total = 0;
     user.expenses.filter(e => e.estimated).forEach(expense => {
       total += expense.amount;
+    })
+    return total;
+  }
+
+  const getBalanceAfterExpenses = () => {
+    let total = user.monthlyEarnings || 0;
+    let modifer = getMonthlyExpenses();
+    total -= modifer;
+    return total;
+  }
+
+  const getEstimatedRemainingExpenses = () => {
+    let total = 0;
+    user.expenses.filter(e => parseInt(e.date) >= parseInt(moment(new Date()).format('DD'))).forEach(expense => {
+      if (expense.estimated) {
+        total += expense.amount;
+      }
+    })
+    return total;
+  }
+
+  const getRemainingExpenses = () => {
+    let total = getMonthlyExpenses();
+    user.expenses.filter(e => parseInt(e.date) <= parseInt(moment(new Date()).format('DD'))).forEach(expense => {
+      total -= expense.amount;
     })
     return total;
   }
@@ -102,6 +111,23 @@ const Sheet = (props) => {
     return total;
   }
 
+  const getTodaysExpenses = () => {
+    let total = 0;
+    user.expenses.filter(e => e.date === moment(new Date()).format('DD')).forEach(expense => {
+      console.log("EXPENSE", expense.label);
+      total += expense.amount;
+    })
+    return total;
+  }
+
+  const getTodaysEstimated = () => {
+    let total = 0;
+    user.expenses.filter(e => e.estimated && e.date === moment(new Date()).format('DD')).forEach(expense => {
+      total += expense.amount;
+    })
+    return total;
+  }
+
   return (
     <div className="sheet">
       <Row>
@@ -113,14 +139,6 @@ const Sheet = (props) => {
         <Col>
 
           <Row>
-            <Col className="mb-3">
-              <Card className="d-flex flex-column align-items-center">
-                <h5 className="title">Current Balance</h5>
-                <Tooltip id="current-balance-estimated" message={`${getCurrentBalanceEstimated()}/${getCurrentBalance()} is estimated`} place="bottom" >
-                  <h3>{getCurrentBalance() ?? 0}</h3>
-                </Tooltip>
-              </Card>
-            </Col>
             <Col xs={4} className="mb-3">
               <Card className="d-flex flex-column align-items-center">
                 <h5 className="title d-flex align-items-center">
@@ -140,22 +158,49 @@ const Sheet = (props) => {
                 )}
               </Card>
             </Col>
+            <Col className="mb-3">
+              <Card className="d-flex flex-column align-items-center">
+                <h5 className="title">Balance After Expenses</h5>
+                {/* <Tooltip id="balance-after" message={`${getEstimatedRemainingExpenses()}/${getBalanceAfterExpenses()} is estimated`} place="bottom" > */}
+                  <h3 className="text-primary">{getBalanceAfterExpenses()}</h3>
+                {/* </Tooltip> */}
+              </Card>
+            </Col>
           </Row>
 
           <Row>
-            <Col xs={4} className="mb-3">
+            <Col xs={7} className="mb-3">
               <Card className="d-flex flex-column align-items-center">
-                <h5 className="title">Today</h5>
-                <Tooltip id="todays-estimated" message={`${getTodaysEstimated()}/${getTodaysExpenses()} is estimated`} place="bottom" >
-                  <h3 className={getTodaysExpenses() === 0 ? "text-primary" : "text-danger"}>-{getTodaysExpenses()}</h3>
+                <h5 className="title">Current Balance</h5>
+                {/* <Tooltip id="current-balance" message={`${getCurrentBalanceEstimated()}/${getCurrentBalance()} is estimated`} place="bottom" > */}
+                  <h3 className="text-primary">{getCurrentBalance()}</h3>
+                {/* </Tooltip> */}
+              </Card>
+            </Col>
+            <Col className="mb-3">
+              <Card className="d-flex flex-column align-items-center">
+                <h5 className="title">Total Expenses</h5>
+                <Tooltip id="monthly-expenses" message={`${getMonthlyEstimated()}/${getMonthlyExpenses()} is estimated`} place="bottom" >
+                  <h3 className="text-danger">{getMonthlyExpenses()}</h3>
+                </Tooltip>
+              </Card>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col className="mb-3">
+              <Card className="d-flex flex-column align-items-center">
+                <h5 className="title">Remaining Expenses</h5>
+                <Tooltip id="remaining-expenses" message={`${getEstimatedRemainingExpenses()}/${getRemainingExpenses()} is estimated`} place="bottom" >
+                  <h3 className="text-danger">{getRemainingExpenses()}</h3>
                 </Tooltip>
               </Card>
             </Col>
             <Col className="mb-3">
               <Card className="d-flex flex-column align-items-center">
-                <h5 className="title">Monthly</h5>
-                <Tooltip id="monthly-estimated" message={`${getMonthlyEstimated()}/${getMonthlyExpenses()} is estimated`} place="bottom" >
-                  <h3 className={getMonthlyExpenses() === 0 ? "text-primary" : "text-danger"}>-{getMonthlyExpenses()}</h3>
+                <h5 className="title">Withdrawn Today</h5>
+                <Tooltip id="todays-expenses" message={`${getTodaysEstimated()}/${getTodaysExpenses()} is estimated`} place="bottom" >
+                  <h3 className="text-danger">{getTodaysExpenses()}</h3>
                 </Tooltip>
               </Card>
             </Col>
@@ -163,9 +208,10 @@ const Sheet = (props) => {
 
           <Row>
             <Col>
-              <Card>
+              <Card className="pb-0">
                 <h5 className="title">Tips</h5>
                 <ul>
+                  <li className="mb-2">Click on the icon next to the Monthly Balance card to change your monthly balance</li>
                   <li className="mb-2">Hover over the numbers above to see how much of it may be estimated</li>
                   <li className="mb-2">Try selecting items from the expenses table to see what actions are available</li>
                 </ul>
