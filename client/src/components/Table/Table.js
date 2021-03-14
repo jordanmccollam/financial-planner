@@ -12,7 +12,8 @@ const Table = (props) => {
     columns,
     data,
     title,
-    actions
+    actions,
+    sortAccessor
   } = props;
   const [ selected, setSelected ] = useState([]);
 
@@ -120,7 +121,9 @@ const Table = (props) => {
       </Row>
 
       {/* TABLE ROWS */}
-      {(data?.length > 0 && columns) ? data.slice(0, 10).map((row, rowIndex) => {
+      {(data?.length > 0 && columns) ? 
+      (sortAccessor ? data.sort((a, b) => parseInt(a[sortAccessor]) - parseInt(b[sortAccessor])) : data)
+      .map((row, rowIndex) => {
         return (
           <Row key={`table-row-${rowIndex}`} className={`py-2 border-bottom table-row align-items-center ${selected.includes(row) && 'bg-selected'}`} onClick={() => selectRow(row)}>
             <Col xs={1} className="d-flex justify-content-center">

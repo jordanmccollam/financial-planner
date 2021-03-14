@@ -130,6 +130,7 @@ const Expenses = (props) => {
                 data={user.expenses}
                 columns={columns}
                 actions={actions}
+                sortAccessor={'date'}
             />
         )
     }

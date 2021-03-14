@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Card, Tooltip } from '../../components';
-import { Row, Col, Button } from 'react-bootstrap';
+import { Row, Col, Button, Form } from 'react-bootstrap';
 import Expenses from './Expenses';
 import moment from 'moment';
+import { MdEdit } from 'react-icons/md';
+import { BiCheck } from 'react-icons/bi';
+import apis from "../../api";
 
 const logger = "Sheet:: ";
 
@@ -27,6 +30,29 @@ const testExpenses = [
 
 const Sheet = (props) => {
   const { user, setUser } = props;
+  const [ newBalance, setNewBalance ] = useState(-1);
+
+  const toggleEditBalace = () => {
+    if (newBalance > -1) {
+      updateBalance(newBalance);
+      setNewBalance(-1);
+    } else {
+      setNewBalance(user.monthlyEarnings ? user.monthlyEarnings : 0);
+    }
+  }
+
+  const updateBalance = (_balance) => {
+    console.log(logger + 'updateBalance', _balance);
+    apis.updateUser(user.token, user._id, {monthlyEarnings: _balance}).then(res => {
+      console.log(logger + 'updateBalance:: res', res);
+      setUser({
+        ...user,
+        monthlyEarnings: _balance
+      })
+    }).catch(e => {
+      console.error(logger + 'updateBalance', e);
+    });
+  }
 
   const getMonthlyExpenses = () => {
     let total = 0;
@@ -97,8 +123,21 @@ const Sheet = (props) => {
             </Col>
             <Col xs={4} className="mb-3">
               <Card className="d-flex flex-column align-items-center">
-                <h5 className="title">Monthly Balance</h5>
-                <h3>{user.monthlyEarnings ?? 0}</h3>
+                <h5 className="title d-flex align-items-center">
+                  Monthly Balance
+                  <Tooltip id="edit-monthly-balance" message={newBalance > -1 ? "Done Editing" : "Edit Monthly Balance"} >
+                    {newBalance > -1 ? (
+                      <BiCheck onClick={toggleEditBalace} className="clear-btn"/>
+                    ) : (
+                      <MdEdit onClick={toggleEditBalace} className="clear-btn"/>
+                    )}
+                  </Tooltip>
+                </h5>
+                {newBalance > -1 ? (
+                  <Form.Control type="number" value={newBalance} onChange={(event) => setNewBalance(event.target.value)} />
+                ) : (
+                  <h3>{user.monthlyEarnings ?? 0}</h3>
+                )}
               </Card>
             </Col>
           </Row>
