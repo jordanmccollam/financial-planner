@@ -95,8 +95,10 @@ const Expenses = (props) => {
             console.log(logger + 'createExpense: res ', res);
             setUser({
                 ...user,
-                entries: [...user.entries, res.data.output]
+                expenses: [...user.expenses, res.data.output]
             })
+            setAddModal(false);
+            setNewExpense(initialExpense);
         }).catch(e => {
             console.error(logger + 'createExpense', e);
         })

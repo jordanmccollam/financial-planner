@@ -14,6 +14,7 @@ function App() {
 
   useEffect(() => {
     if (user) {
+      console.log('User', user);
       connectUserToDb();
     }
   }, [user])
