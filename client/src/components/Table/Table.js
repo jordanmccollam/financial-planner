@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Button, Container } from 'react-bootstrap';
+import { Row, Col, Button, Container, Form } from 'react-bootstrap';
 import { Tooltip } from '../index';
 import { BiCheck, BiX, BiCheckbox } from 'react-icons/bi';
 import { BsCheckBox, BsSquare, BsDashSquare } from 'react-icons/bs';
@@ -118,39 +118,62 @@ const Table = (props) => {
     setSelected([]);
   }
 
+  const onSearch = (event) => {
+    setSearchValue(event.target.value);
+    const results = data.filter((d) => columns.some((c) => {
+        if (c.customCol) {
+          const element = c.customCol(d);
+          const value = element.props.children
+          return (
+              typeof value === 'string' && value.toUpperCase().includes(event.target.value.toUpperCase()) ||
+              typeof value === 'object' && value.some(a => a.toUpperCase().includes(event.target.value.toUpperCase()))
+          )
+        } else {
+          let tmp = c.accessor ? c.accessor : c.label;
+          return (
+              typeof d[tmp] === 'string' && d[tmp].toUpperCase().includes(event.target.value.toUpperCase()) ||
+              typeof d[tmp] === 'object' && d[tmp].some(a => a.toUpperCase().includes(event.target.value.toUpperCase()))
+          )
+        }
+    }));
+    setSearchResults(results);
+    setPage(0);
+  }
+
   return (
     <Container className={`${className} table`}>
       <Row>
         <Col xs={12} className="d-flex justify-content-between mb-3 px-0">
-            <div className="center-v">
-              <h5 className="title">{title ? title : 'Table Title'}</h5>
-              {selected.length > 0 && (
-                <div className="ml-3 selected-msg">{selected.length} selected</div>
-              )}
-            </div>
-            <div className="d-flex">
-              {(selected.length === 1) && actions.filter(a => a.type && a.type === 'single').map((action, index) => {
-                return (
-                  <Tooltip key={`table-action-${index}`} id={action.title ? action.title : 'Action!'} message={action.title ? action.title : 'Action!'} >
-                    <Button variant={action.variant ? action.variant : 'primary'} onClick={() => handleSingleAction(action.handler)} className="px-3 py-0 ml-1" >{action.icon ? action.icon : '?'}</Button>
-                  </Tooltip>
-                )
-              })}
-              {(selected.length > 0 && actions) && actions.filter(a => a.type && a.type === 'multi').map((action, index) => {
-                return (
-                  <Tooltip key={`table-action-${index}`} id={action.title ? action.title : 'Action!'} message={action.title ? action.title : 'Action!'} >
-                    <Button variant={action.variant ? action.variant : 'primary'} onClick={() => handleMultiAction(action.handler)} className="px-3 py-0 ml-1" >{action.icon ? action.icon : '?'}</Button>
-                  </Tooltip>
-                )
-              })}
-              {actions && actions.filter(a => a.type && a.type === 'global').map((action, index) => {
-                return (
-                  <Tooltip key={`table-action-${index}`} id={action.title ? action.title : 'Action!'} message={action.title ? action.title : 'Action!'} >
-                    <Button variant={action.variant ? action.variant : 'primary'} onClick={action.handler ? action.handler : () => console.log(logger + "Action!")} className="px-3 py-0 ml-1" >{action.icon ? action.icon : '?'}</Button>
-                  </Tooltip>
-                )
-              })}
-            </div>
+          <div className="center-v">
+            <h5 className="title mr-2 mt-2">{title ? title : 'Table Title'}</h5>
+            {actions && actions.filter(a => a.type && a.type === 'global').map((action, index) => {
+              return (
+                <Tooltip key={`table-action-${index}`} id={action.title ? action.title : 'Action!'} message={action.title ? action.title : 'Action!'} >
+                  <Button variant={action.variant ? action.variant : 'primary'} onClick={action.handler ? action.handler : () => console.log(logger + "Action!")} className="px-2 py-0 ml-1" >{action.icon ? action.icon : '?'}</Button>
+                </Tooltip>
+              )
+            })}
+            {(selected.length > 0 && actions) && actions.filter(a => a.type && a.type === 'multi').map((action, index) => {
+              return (
+                <Tooltip key={`table-action-${index}`} id={action.title ? action.title : 'Action!'} message={action.title ? action.title : 'Action!'} >
+                  <Button variant={action.variant ? action.variant : 'primary'} onClick={() => handleMultiAction(action.handler)} className="px-2 py-0 ml-1" >{action.icon ? action.icon : '?'}</Button>
+                </Tooltip>
+              )
+            })}
+            {(selected.length === 1) && actions.filter(a => a.type && a.type === 'single').map((action, index) => {
+              return (
+                <Tooltip key={`table-action-${index}`} id={action.title ? action.title : 'Action!'} message={action.title ? action.title : 'Action!'} >
+                  <Button variant={action.variant ? action.variant : 'primary'} onClick={() => handleSingleAction(action.handler)} className="px-2 py-0 ml-1" >{action.icon ? action.icon : '?'}</Button>
+                </Tooltip>
+              )
+            })}
+            {selected.length > 0 && (
+              <div className="ml-3 selected-msg">{selected.length} selected</div>
+            )}
+          </div>
+          <div className="d-flex">
+            <Form.Control value={searchValue} onChange={onSearch} placeholder="Search" className="mb-2 ml-2" style={{height: 35}} />
+          </div>
         </Col>
       </Row>
 
