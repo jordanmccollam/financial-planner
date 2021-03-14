@@ -26,7 +26,7 @@ const testExpenses = [
 ]
 
 const Sheet = (props) => {
-  const { user } = props;
+  const { user, setUser } = props;
 
   const getMonthlyExpenses = () => {
     let total = 0;
@@ -61,7 +61,7 @@ const Sheet = (props) => {
   }
 
   const getCurrentBalance = () => {
-    let total = user.monthlyEarnings;
+    let total = user.monthlyEarnings || 0;
     user.expenses.filter(e => parseInt(e.date) <= parseInt(moment(new Date()).format('DD'))).forEach(expense => {
       total -= expense.amount;
     })
@@ -81,7 +81,7 @@ const Sheet = (props) => {
       <Row>
         <Col lg={5}>
           <Card className="full" title="Expenses" >
-            <Expenses expenses={user.expenses} />
+            <Expenses user={user} setUser={setUser} />
           </Card>
         </Col>
         <Col>

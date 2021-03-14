@@ -53,7 +53,7 @@ function App() {
           <Row className="p-3">
             <Col>
               {dbUser.currentSheet ? (
-                <Screens.Sheet user={dbUser} />
+                <Screens.Sheet user={dbUser} setUser={setDbUser} />
               ) : (
                 <Screens.CreateSheet user={dbUser} />
               )}

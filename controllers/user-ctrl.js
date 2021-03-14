@@ -1,7 +1,7 @@
 const User = require('../models/user-model');
 
 getUser = async (req, res) => {
-    await User.findOne({ email: req.params.email }).populate('expense').exec((err, user) => {
+    await User.findOne({ email: req.params.email }).populate('expenses').exec((err, user) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
         } else {
