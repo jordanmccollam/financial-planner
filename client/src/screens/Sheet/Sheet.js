@@ -4,7 +4,7 @@ import { Row, Col, Button, Form } from 'react-bootstrap';
 import Expenses from './Expenses';
 import moment from 'moment';
 import { MdEdit } from 'react-icons/md';
-import { BiCheck } from 'react-icons/bi';
+import { BiCheck, BiDollar } from 'react-icons/bi';
 import apis from "../../api";
 
 const logger = "Sheet:: ";
@@ -154,7 +154,7 @@ const Sheet = (props) => {
                 {newBalance > -1 ? (
                   <Form.Control type="number" value={newBalance} onChange={(event) => setNewBalance(event.target.value)} />
                 ) : (
-                  <h3>{user.monthlyEarnings ?? 0}</h3>
+                  <h3><BiDollar size={25} className="mb-1"/>{user.monthlyEarnings ?? 0}</h3>
                 )}
               </Card>
             </Col>
@@ -162,7 +162,7 @@ const Sheet = (props) => {
               <Card className="d-flex flex-column align-items-center">
                 <h5 className="title">Balance After Expenses</h5>
                 {/* <Tooltip id="balance-after" message={`${getEstimatedRemainingExpenses()}/${getBalanceAfterExpenses()} is estimated`} place="bottom" > */}
-                  <h3 className="text-primary">{getBalanceAfterExpenses()}</h3>
+                  <h3 className="text-primary"><BiDollar size={25} className="mb-1"/>{getBalanceAfterExpenses()}</h3>
                 {/* </Tooltip> */}
               </Card>
             </Col>
@@ -173,7 +173,7 @@ const Sheet = (props) => {
               <Card className="d-flex flex-column align-items-center">
                 <h5 className="title">Current Balance</h5>
                 {/* <Tooltip id="current-balance" message={`${getCurrentBalanceEstimated()}/${getCurrentBalance()} is estimated`} place="bottom" > */}
-                  <h3 className="text-primary">{getCurrentBalance()}</h3>
+                  <h3 className="text-primary"><BiDollar size={25} className="mb-1"/>{getCurrentBalance()}</h3>
                 {/* </Tooltip> */}
               </Card>
             </Col>
@@ -181,7 +181,7 @@ const Sheet = (props) => {
               <Card className="d-flex flex-column align-items-center">
                 <h5 className="title">Total Expenses</h5>
                 <Tooltip id="monthly-expenses" message={`${getMonthlyEstimated()}/${getMonthlyExpenses()} is estimated`} place="bottom" >
-                  <h3 className="text-danger">{getMonthlyExpenses()}</h3>
+                  <h3 className="text-danger center-v"><BiDollar size={25}/>{getMonthlyExpenses()}</h3>
                 </Tooltip>
               </Card>
             </Col>
@@ -192,7 +192,7 @@ const Sheet = (props) => {
               <Card className="d-flex flex-column align-items-center">
                 <h5 className="title">Remaining Expenses</h5>
                 <Tooltip id="remaining-expenses" message={`${getEstimatedRemainingExpenses()}/${getRemainingExpenses()} is estimated`} place="bottom" >
-                  <h3 className="text-danger">{getRemainingExpenses()}</h3>
+                  <h3 className="text-danger center-v"><BiDollar size={25}/>{getRemainingExpenses()}</h3>
                 </Tooltip>
               </Card>
             </Col>
@@ -200,7 +200,7 @@ const Sheet = (props) => {
               <Card className="d-flex flex-column align-items-center">
                 <h5 className="title">Withdrawn Today</h5>
                 <Tooltip id="todays-expenses" message={`${getTodaysEstimated()}/${getTodaysExpenses()} is estimated`} place="bottom" >
-                  <h3 className="text-danger">{getTodaysExpenses()}</h3>
+                  <h3 className="text-danger center-v"><BiDollar size={25}/>{getTodaysExpenses()}</h3>
                 </Tooltip>
               </Card>
             </Col>

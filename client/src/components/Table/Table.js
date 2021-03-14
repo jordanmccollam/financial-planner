@@ -44,7 +44,7 @@ const Table = (props) => {
   const renderElement = (el, row) => {
     if (row && el) {
       if (el.customCol) {
-        return el.customCol();
+        return el.customCol(row);
       }
       else if (el.accessor) {
         if (typeof row[el.accessor] === 'boolean') {

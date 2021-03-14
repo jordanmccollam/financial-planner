@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Card, Tooltip, Table, Modal, Checkbox, DatePicker } from '../../components';
 import { Row, Col, Button, Form } from 'react-bootstrap';
-import { BiPlus, BiMinus } from 'react-icons/bi';
+import { BiPlus, BiMinus, BiDollar } from 'react-icons/bi';
 import { MdEdit } from 'react-icons/md';
 import apis from '../../api';
 
@@ -27,7 +27,14 @@ const Expenses = (props) => {
 
     const columns = [
         { label: 'label' },
-        { label: 'amount' },
+        { 
+            label: 'amount',
+            customCol: (el) => {
+                return (
+                    <div className="center-v"><BiDollar size={10} />{el.amount}</div>
+                )
+            }
+        },
         { label: 'autopay' },
         { label: 'Est.', accessor: 'estimated' },
         { label: 'date' },
