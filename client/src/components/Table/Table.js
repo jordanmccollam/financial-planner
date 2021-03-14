@@ -3,8 +3,11 @@ import { Row, Col, Button, Container } from 'react-bootstrap';
 import { Tooltip } from '../index';
 import { BiCheck, BiX, BiCheckbox } from 'react-icons/bi';
 import { BsCheckBox, BsSquare, BsDashSquare } from 'react-icons/bs';
+import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
 
 const logger = "Table:: ";
+
+const defaultSize = 10;
 
 const Table = (props) => {
   const {
@@ -13,9 +16,11 @@ const Table = (props) => {
     data,
     title,
     actions,
-    sortAccessor
+    sortAccessor,
+    size
   } = props;
   const [ selected, setSelected ] = useState([]);
+  const [ page, setPage ] = useState(0);
 
   const renderElement = (el, row) => {
     if (row && el) {
@@ -122,7 +127,7 @@ const Table = (props) => {
 
       {/* TABLE ROWS */}
       {(data?.length > 0 && columns) ? 
-      (sortAccessor ? data.sort((a, b) => parseInt(a[sortAccessor]) - parseInt(b[sortAccessor])) : data)
+      (sortAccessor ? data.sort((a, b) => parseInt(a[sortAccessor]) - parseInt(b[sortAccessor])).slice(page, size ? (size + page) : (defaultSize + page)) : data.slice(page, size ? (size + page) : (defaultSize + page)))
       .map((row, rowIndex) => {
         return (
           <Row key={`table-row-${rowIndex}`} className={`py-2 border-bottom table-row align-items-center ${selected.includes(row) && 'bg-selected'}`} onClick={() => selectRow(row)}>
@@ -145,8 +150,16 @@ const Table = (props) => {
           </Col>
         </Row>
       )}
-    
-      {children}
+      
+      <Row>
+        {console.log(logger + 'test:: data', data.length)}
+        {console.log(logger + 'test:: page', page)}
+        <Col xs={12} className="center mt-3">
+          <div onClick={() => page !== 0 ? setPage(page-(size ? size : defaultSize)) : console.log(logger + 'Already on page 1')} className="clear-btn"><IoIosArrowBack/></div>
+          <div>{Math.ceil(page / (size ? size : defaultSize)) + 1} / {Math.ceil(data.length / (size ? size : defaultSize))}</div>
+          <div onClick={() => page !== data.length - 1 ? setPage(page+(size ? size : defaultSize)) : console.log(logger + 'Already on last page')} className="clear-btn"><IoIosArrowForward/></div>
+        </Col>
+      </Row>
     </Container>
   )
 }

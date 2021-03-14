@@ -131,6 +131,7 @@ const Expenses = (props) => {
                 columns={columns}
                 actions={actions}
                 sortAccessor={'date'}
+                size={9}
             />
         )
     }
