@@ -7,7 +7,7 @@ const Expense = new Schema(
         amount: { type: Number, required: true },
         autopay: { type: Boolean, required: true },
         estimated: { type: Boolean, required: true },
-        repeat: { type: Number, required: true }, // Ex: 1 = once a month
+        repeat: { type: Number, required: true },
         date: { type: String, required: true },
         user: { type: Schema.Types.ObjectId, ref: "user" },
     },
@@ -15,3 +15,8 @@ const Expense = new Schema(
 );
 
 module.exports = mongoose.model('expense', Expense);
+
+
+
+
+
