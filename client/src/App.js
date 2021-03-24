@@ -10,8 +10,7 @@ function App() {
   const { loginWithRedirect, logout, user, getAccessTokenSilently } = useAuth0();
   const [ theme, setTheme ] = useState('theme--light');
   const [ dbUser, setDbUser ] = useState(null);
-  // const [ user, setUser ] = useState({email: 'jordy.mccollam@gmail.com'});
-  // const [ user, setUser ] = useState(null);
+  const [ token, setToken ] = useState(null);
 
   useEffect(() => {
     if (user) {
@@ -20,10 +19,14 @@ function App() {
     }
   }, [user])
 
+  const signOut = () => {
+    logout();
+  }
+
   const connectUserToDb = async () => {
     const _token = 'test';
     // const _token = await getAccessTokenSilently();
-    // setToken(_token);
+    setToken(_token);
     apis.getUser(_token, user.email).then(res => {
       console.log("connectUserToDb:: res", res);
       if (!res.data.output) {
@@ -56,7 +59,7 @@ function App() {
             <Row className="p-3">
               <Col>
                 {dbUser.currentSheet ? (
-                  <Screens.Sheet user={dbUser} setUser={setDbUser} />
+                  <Screens.Sheet user={dbUser} setUser={setDbUser} user={{...user, ...dbUser, token}} signOut={signOut} />
                 ) : (
                   <Screens.CreateSheet user={dbUser} />
                 )}
