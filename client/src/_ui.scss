@@ -4,7 +4,11 @@
     color: $primary !important;
 }
 
-.btn-outline-primary.dropdown-toggle,
+.btn-outline-primary.dropdown-toggle {
+    background-color: $light !important;
+    color: $primary !important;
+    border-color: $green-50 !important;
+}
 .btn-outline-primary:focus,
 .btn-outline-primary:hover {
     background-color: $grey-00 !important;
