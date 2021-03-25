@@ -3,17 +3,15 @@
 .btn-outline-primary {
     color: $primary !important;
 }
-.btn-outline-primary:focus {
-    background-color: $green-50;
-    color: $light !important;
-    border-radius: $radius !important;
-    border-color: $green-50 !important;
-}
+
+.btn-outline-primary.dropdown-toggle,
+.btn-outline-primary:focus,
 .btn-outline-primary:hover {
-    background-color: $green-50 !important;
-    color: $light !important;
-    border-radius: $radius !important;
+    background-color: $grey-00 !important;
+    color: $primary !important;
     border-color: $green-50 !important;
+    border-width: 2px;
+    border-radius: $radius !important;
 }
 .btn-primary {
     background-color: $green-50 !important;

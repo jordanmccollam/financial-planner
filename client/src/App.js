@@ -55,7 +55,7 @@ function App() {
       {user ? (
         dbUser ? (
           <Container fluid className="px-0" style={{overflow: 'hidden'}}>
-            <Comp.Navbar user={dbUser} />
+            <Comp.Navbar user={{...user, ...dbUser, token}} signOut={signOut} />
             <Row className="p-3">
               <Col>
                 {dbUser.currentSheet ? (

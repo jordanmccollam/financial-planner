@@ -131,7 +131,7 @@ const Sheet = (props) => {
   return (
     <div className="sheet">
       <Row>
-        <Col lg={5}>
+        <Col lg={5} className="mb-3">
           <Card className="full overflow-hidden" title="Expenses" >
             <Expenses user={user} setUser={setUser} />
           </Card>

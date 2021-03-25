@@ -4,6 +4,11 @@
     box-shadow: 0px 1px 5px $shadow-color;
 }
 
+.dropdown-menu {
+    border: none !important;
+    box-shadow: $shadow;
+}
+
 .navbar-dropdown {
     button {
         width: 30vw !important;
@@ -16,6 +21,9 @@
     }
     .dropdown-btn {
         display: block;
+        border: none;
+        text-align: center;
+        width: 30vw !important;
         border: none;
     }
 }
