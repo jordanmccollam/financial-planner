@@ -6,6 +6,8 @@ import * as Comp from './components';
 import { Spinner } from 'react-bootstrap';
 import { useAuth0 } from '@auth0/auth0-react';
 
+import './App.scss';
+
 function App() {
   const { loginWithRedirect, logout, user, getAccessTokenSilently } = useAuth0();
   const [ theme, setTheme ] = useState('theme--light');
@@ -51,32 +53,36 @@ function App() {
 
   return (
     <div className="App">
+      <Container fluid>
+        <Row className="full border border-danger">
+          <Col>
+      
+            {user ? (
+              dbUser ? (
+                // LOGGED IN CONTENT
+                <>
+                  Logged In
+                </>
+                // ------------------
+              ) : (
+                <Container>
+                  <div className="text-center full d-flex flex-column justify-content-center align-items-center">
+                    <Spinner animation="border" variant="light" style={{height: 100, width: 100}} />
+                    <h5 className="text-light mt-4">Please wait...</h5>
+                  </div>
+                </Container>
+              )
+            ) : (
+              // LOGGED OUT CONTENT
+              <>
+                Logged Out
+              </>
+              // ------------------
+            )}
 
-      {user ? (
-        dbUser ? (
-          <Container fluid className="px-0" style={{overflow: 'hidden'}}>
-            <Comp.Navbar user={{...user, ...dbUser, token}} signOut={signOut} />
-            <Row className="p-3">
-              <Col>
-                {dbUser.currentSheet ? (
-                  <Screens.Sheet user={dbUser} setUser={setDbUser} user={{...user, ...dbUser, token}} signOut={signOut} />
-                ) : (
-                  <Screens.CreateSheet user={dbUser} />
-                )}
-              </Col>
-            </Row>
-          </Container>
-        ) : (
-          <Container>
-            <div className="text-center full d-flex flex-column justify-content-center align-items-center">
-              <Spinner animation="border" variant="light" style={{height: 100, width: 100}} />
-              <h5 className="text-light mt-4">Please wait while we load your data...</h5>
-            </div>
-          </Container>
-        )
-      ) : (
-        <Screens.Welcome signIn={loginWithRedirect} />
-      )}
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 }

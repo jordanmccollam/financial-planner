@@ -1,7 +1,8 @@
-@import "variables";
-@import "utils";
-@import "type";
-@import "ui";
+@import "./sass/variables";
+@import "./sass/utils";
+@import "./sass/type";
+@import "./sass/ui";
+@import "./sass/anim";
 @import "~bootstrap/scss/bootstrap";
 
 * {
@@ -9,20 +10,11 @@
 }
 
 .App {
-  background: linear-gradient(to right, #41e48b, $green-40);
-  height: 100vh;
+  background: $bg;
+  height: 100%;
+  width: 100%;
   margin: 0px;
   padding: 0px;
-  overflow: auto;
 }
 
-@import "./components/Navbar/navbar.scss";
-@import "./components/Card/card.scss";
-@import "./screens/Sheet/sheet.scss";
-@import "./components/Tooltip/custom-tooltip.scss";
-@import "./components/Table/table.scss";
-@import "./screens/CreateSheet/create-sheet.scss";
-@import "./components/Modal/modal.scss";
-@import "./components/Checkbox/checkbox.scss";
-@import "./components/DatePicker/date-picker.scss";
-@import "./screens/Welcome/welcome.scss";
+
