@@ -112,8 +112,8 @@ $light: #f8f9fa;
 /*
  *  UI
  */
-$bg: #FFFFFF;
-$text-color: #000000;
+$bg: linear-gradient(to right, #41e48b, $green-40);
+$text-color: $grey-40;
 
 $radius: 3px;
 

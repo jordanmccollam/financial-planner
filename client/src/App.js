@@ -75,7 +75,7 @@ function App() {
             ) : (
               // LOGGED OUT CONTENT
               <>
-                Logged Out
+                <Screens.Welcome />
               </>
               // ------------------
             )}

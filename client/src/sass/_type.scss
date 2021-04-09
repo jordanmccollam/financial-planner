@@ -1,9 +1,31 @@
 @import "variables";
 
-.App {
-  font-size: 16px;
+* {
   font-family: $font-primary;
   color: $text-color;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: $primary;
+}
+
+h1 {
+  font-size: $text-04 !important;
+}
+h2 {
+  font-size: $text-03 !important;
+}
+h3 {
+  font-size: $text-02 !important;
+}
+h4 {
+  font-size: $text-01 !important;
+}
+h5 {
+  font-size: $text-00 !important;
+}
+h6 {
+  font-size: $text-00 !important;
 }
 
 
