@@ -1,7 +1,7 @@
 @import "../../sass/variables";
 
 .card {
-    background-color: $light;
+    background-color: $light !important;
     box-shadow: $shadow;
     padding: 25px;
     border: none !important;

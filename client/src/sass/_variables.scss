@@ -61,9 +61,12 @@ $space-00: 0.25rem;
  */
 
 // Blue
-$blue-20: #1f2a5a;
-$blue-10: #5B7EDD;
-$blue-00: #B7D0FF;
+$blue: #25397f;
+$blue-40: darken($blue, 20%);
+$blue-30: darken($blue, 10%);
+$blue-20: $blue;
+$blue-10: lighten($blue, 40%);
+$blue-00: lighten($blue, 60%);
 
 // Green
 $green-80: #082a22;
@@ -105,15 +108,19 @@ $grey-00: #EFEFEF;
  *  BOOTSTRAP OVERRIDES
  */
 
-$primary: #197d67;
-$success: #197d67;
-$light: #f8f9fa;
+$primary: $blue;
+$success: $blue;
+// $light: #f8f9fa;
+$light: $blue-00;
 
 /*
  *  UI
  */
-$bg: linear-gradient(to right, #41e48b, $green-40);
+$bg: linear-gradient(to right, $blue-40, $blue-20);
 $text-color: $grey-40;
+
+$border-color: $blue-10;
+$border: 1px solid $border-color;
 
 $radius: 3px;
 
