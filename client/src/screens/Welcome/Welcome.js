@@ -19,9 +19,9 @@ const Welcome = (props) => {
         <Card className="py-2" >
           <>
             <Logo className="center" />
-            <div className="border-bottom mb-3" />
+            <div className="border-bottom" />
 
-            <div className="px-5">
+            <div className="px-5 my-4">
               <Button full ><>Sign In <Icon icon="AiOutlineLogin" size={30} className="ml-1" /></></Button>
             </div>
           </>
