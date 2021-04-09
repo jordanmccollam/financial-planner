@@ -1,0 +1,21 @@
+@import "../../sass/variables";
+
+.button {
+    background: $blue-10;
+    color: $light;
+    border-radius: $radius;
+    width: max-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: $space-01 $space-05;
+    cursor: pointer;
+    transition: $transition;
+    &:hover {
+        background: darken($blue-10, 10%);
+    }
+
+    &-full {
+        width: 100%;
+    }
+}

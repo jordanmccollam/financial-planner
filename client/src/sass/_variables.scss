@@ -65,7 +65,7 @@ $blue: #25397f;
 $blue-40: darken($blue, 20%);
 $blue-30: darken($blue, 10%);
 $blue-20: $blue;
-$blue-10: lighten($blue, 40%);
+$blue-10: lighten($blue, 30%);
 $blue-00: lighten($blue, 60%);
 
 // Green
@@ -123,6 +123,7 @@ $border-color: $blue-10;
 $border: 1px solid $border-color;
 
 $radius: 3px;
+$transition: 0.2s;
 
 $font-primary: "Lato", sans-serif;
 $font-secondary: "Lato", sans-serif;

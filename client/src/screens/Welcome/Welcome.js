@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from 'prop-types'
 import classnames from "classnames"
 import { Container, Row, Col } from 'react-bootstrap'
-import { Card, Icon, Logo } from '../../components';
+import { Card, Icon, Logo, Button } from '../../components';
 
 import './_welcome.scss';
 
@@ -19,7 +19,11 @@ const Welcome = (props) => {
         <Card >
           <>
             <Logo className="center" />
-            <div className="border-bottom"></div>
+            <div className="border-bottom mb-3" />
+
+            <div className="px-5">
+              <Button full ><>Sign In <Icon icon="AiOutlineLogin" size={30} className="ml-1" /></></Button>
+            </div>
           </>
         </Card>
       </Col>
