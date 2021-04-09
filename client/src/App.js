@@ -54,7 +54,7 @@ function App() {
   return (
     <div className="App">
       <Container fluid>
-        <Row className="full border border-danger">
+        <Row className="full">
           <Col>
       
             {user ? (
