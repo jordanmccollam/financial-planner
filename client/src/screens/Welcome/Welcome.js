@@ -16,7 +16,7 @@ const Welcome = (props) => {
   return (
     <Row className={`${props.className} ${classnames(classes)}`}>
       <Col lg={4}>
-        <Card >
+        <Card className="py-2" >
           <>
             <Logo className="center" />
             <div className="border-bottom mb-3" />
