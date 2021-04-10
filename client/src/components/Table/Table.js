@@ -168,7 +168,7 @@ const Table = (props) => {
         </Col>
       </Row>
 
-      <Row>
+      <Row className="d-md-none">
         <Col>
           <div>
             {props.actions.filter(a => a.type && a.type === 'global').map((action, i) => (
