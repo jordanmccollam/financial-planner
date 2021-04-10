@@ -188,6 +188,8 @@ Sheet.propTypes = {
 
 Sheet.defaultProps = {
   className: "",
+  user: {expenses: []},
+  setUser: () => console.log(logger + 'setUser')
 }
 
 export default Sheet;
