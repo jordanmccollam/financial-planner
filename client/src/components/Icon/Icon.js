@@ -31,7 +31,7 @@ Icon.propTypes = {
 Icon.defaultProps = {
   className: "",
   size: null,
-  icon: 'GiTakeMyMoney',
+  icon: 'AiOutlineLogin',
   color: 'inherit'
 }
 

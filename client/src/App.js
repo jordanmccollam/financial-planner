@@ -62,6 +62,7 @@ function App() {
                 // LOGGED IN CONTENT
                 <>
                   <Comp.Navbar signout={logout} user={dbUser} />
+                  <Screens.Sheet user={dbUser} />
                 </>
                 // ------------------
               ) : (

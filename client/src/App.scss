@@ -5,6 +5,7 @@
 @import "./sass/anim";
 @import "~bootstrap/scss/bootstrap";
 
+
 * {
   box-sizing: border-box;
 }
@@ -20,3 +21,4 @@
 
 
 @import "./screens/Welcome/welcome.scss";
+@import "./screens/Sheet/sheet.scss";
