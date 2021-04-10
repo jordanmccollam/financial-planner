@@ -12,6 +12,7 @@ const Table = (props) => {
   const [ selected, setSelected ] = useState([]);
   const [ searchValue, setSearchValue ] = useState([]);
   const [ searchResults, setSearchResults ] = useState([]);
+  const [ sliced, setSliced ] = useState([]);
   const [ page, setPage ] = useState([]);
   let classes = {
 		[`table`]: true
@@ -57,11 +58,31 @@ const Table = (props) => {
     setPage(0);
   }
 
+  const toggleSelectAll = (e) => {
+    if (e.shiftKey) {
+      if (selected.length > 0) {
+        setSelected([]);
+      } else {
+        setSelected(searchResults);
+      }
+    } else {
+        if (selected.some(s => sliced.indexOf(s) >= 0)) {
+          setSelected(selected.filter(s => sliced.indexOf(s) < 0));
+        } else {
+          let tmp = selected.filter(s => sliced.indexOf(s) < 0);
+          sliced.forEach(item => {
+              tmp.push(item);
+          });
+          setSelected(tmp);
+        }
+    }
+  }
+
   return (
     <Container className={`${props.className} ${classnames(classes)}`}>
       <Row>
         <Col xs={12} className="d-flex justify-content-between" >
-          <div className="center-v">
+          <div className="center-v table-actions justify-content-between">
             <h3 >{props.title}</h3>
             {props.actions.filter(a => a.type && a.type === 'global').map((action, i) => (
               <Tooltip key={`table-actions-global-${i}`} content={action.title} position="bottom" >
@@ -83,10 +104,37 @@ const Table = (props) => {
             )}
           </div>
           <div className="d-flex">
-            <Form.Control value={searchValue} onChange={onSearch} placeholder="Search" className="mb-2 ml-2 shadow-sm" style={{height: 35}} />
+            <Form.Control value={searchValue} onChange={onSearch} placeholder="Search" className="shadow-sm" />
           </div>
         </Col>
       </Row>
+
+      {/* TABLE LABELS */}
+      <Row className="center-v table-row">
+        <Col xs={1}>
+          <Tooltip content={`Shift + click to ${selected.length > 0 ? 'UNSELECT' : 'SELECT'} ${selected.length > 0 ? 'ALL' : searchResults.length} items`} position="top" >
+            <Button kind="ghost" onClick={toggleSelectAll} className="p-2" ><>{selected.length > 0 ? <Icon icon="BsDashSquare" size={13} /> : <Icon icon="BsSquare" size={13} />}</></Button>
+          </Tooltip>
+        </Col>
+        {props.columns.map((col, index) => {
+          return (
+            <Col key={`table-label-${index}`}>
+              <div className="table-label">{col.label.toUpperCase()}</div>
+            </Col>
+          )
+        })}
+      </Row>
+
+      {/* TABLE ROWS */}
+      {props.data.length > 0 ? (
+        <></>
+      ) : (
+        <Row>
+          <Col>
+            <div className="text-center">No Data</div>
+          </Col>
+        </Row>
+      )}
     </Container>
   )
 }
@@ -95,14 +143,16 @@ Table.propTypes = {
   className: PropTypes.string,
   data: PropTypes.array,
   title: PropTypes.string,
-  actions: PropTypes.array
+  actions: PropTypes.array,
+  columns: PropTypes.array
 }
 
 Table.defaultProps = {
   className: "",
   data: [],
   title: 'Table Title',
-  actions: []
+  actions: [],
+  columns: []
 }
 
 export default Table;

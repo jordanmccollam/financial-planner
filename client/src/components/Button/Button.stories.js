@@ -15,4 +15,8 @@ export const Default = Template.bind({})
 Default.args = {
 
 }
+export const Ghost = Template.bind({})
+Ghost.args = {
+  kind: 'ghost'
+}
 

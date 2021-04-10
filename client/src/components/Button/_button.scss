@@ -18,4 +18,12 @@
     &-full {
         width: 100%;
     }
+
+    &-ghost {
+        background: transparent;
+        color: $primary;
+        &:hover {
+            background: darken($blue-00, 5%);
+        }
+    }
 }

@@ -41,14 +41,32 @@ const Sheet = (props) => {
     }
   ]
 
+  const columns = [
+    { label: 'label' },
+    { 
+        label: 'amount',
+        customCol: (el) => {
+            return (
+                <div className="center-v">
+                  {/* <BiDollar size={10} /> */}
+                {el.amount}</div>
+            )
+        }
+    },
+    { label: 'autopay' },
+    { label: 'Est.', accessor: 'estimated' },
+    { label: 'date' },
+];
+
   return (
     <Row className={`${props.className} ${classnames(classes)}`}>
       <Col lg={5}>
         <Card className="full" >
           <>
             <Table 
-              data={testExpenses}
+              // data={testExpenses}
               actions={actions}
+              columns={columns}
             />
           </>
         </Card>

@@ -1,5 +1,23 @@
 @import "../../sass/variables";
 
 .table {
+    input {
+        width: 200px;
+    }
 
+    &-actions {
+        width: 100%;
+        .button {
+            margin: 0 5px;
+        }
+    }
+
+    &-label {
+        font-size: 12px;
+        font-weight: 500 !important;
+    }
+
+    &-row {
+        border-bottom: 1px solid darken($blue-00, 8%);
+    }
 }
