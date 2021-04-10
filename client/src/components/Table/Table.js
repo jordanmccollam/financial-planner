@@ -187,9 +187,9 @@ const Table = (props) => {
       {/* TABLE LABELS */}
       <Row className="center-v table-row no-hover">
         <Col xs={1}>
-          <Tooltip content={`Shift + click to ${selected.length > 0 ? 'UNSELECT' : 'SELECT'} ${selected.length > 0 ? 'ALL' : searchResults.length} items`} position="top" >
+          {/* <Tooltip content={`Shift + click to ${selected.length > 0 ? 'UNSELECT' : 'SELECT'} ${selected.length > 0 ? 'ALL' : searchResults.length} items`} position="top" > */}
             <Button kind="ghost" onClick={toggleSelectAll} className="p-2" ><>{selected.length > 0 ? <Icon icon="BsDashSquare" size={13} /> : <Icon icon="BsSquare" size={13} />}</></Button>
-          </Tooltip>
+          {/* </Tooltip> */}
         </Col>
         {props.columns.map((col, index) => {
           return (

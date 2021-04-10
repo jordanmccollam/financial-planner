@@ -1,7 +1,7 @@
 @import "../../sass/variables";
 
 .button {
-    background: $blue-10;
+    background: $primary;
     color: $light;
     border-radius: $radius;
     width: max-content;
@@ -12,7 +12,7 @@
     cursor: pointer;
     transition: $transition;
     &:hover {
-        background: darken($blue-10, 10%);
+        background: darken($primary, 10%);
     }
 
     &-full {

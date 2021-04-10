@@ -197,6 +197,7 @@ const Expenses = (props) => {
       />
 
       <Modal show={addModal} setShow={setAddModal} title="Add Expense" >
+        <>
         <Form.Label >Label</Form.Label>
         <Form.Control placeholder="Ex: Rent" name="label" value={newExpense.label} onChange={onChange} />
 
@@ -223,9 +224,11 @@ const Expenses = (props) => {
         </Row>
 
         <Button full onClick={add} disabled={validate()} >Done</Button>
+        </>
       </Modal>
 
       <Modal title="Edit Expense" show={editModal} setShow={setEditModal} >
+        <>
         <Form.Label >Label</Form.Label>
         <Form.Control placeholder="Ex: Rent" name="label" value={newExpense.label} onChange={onChange} />
 
@@ -252,7 +255,8 @@ const Expenses = (props) => {
         </Row>
 
         <Button full onClick={edit} disabled={validate()} >Done</Button>
-    </Modal>
+        </>
+      </Modal>
     </div>
   )
 }

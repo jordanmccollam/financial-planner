@@ -62,7 +62,7 @@ $space-00: 0.25rem;
 
 // Blue
 $blue: #25397f;
-$blue-40: darken($blue, 20%);
+$blue-40: darken($blue, 12%);
 $blue-30: darken($blue, 10%);
 $blue-20: $blue;
 $blue-10: lighten($blue, 30%);
@@ -108,17 +108,20 @@ $grey-00: #EFEFEF;
  *  BOOTSTRAP OVERRIDES
  */
 
-$primary: $blue;
+$primary: lighten($blue, 15%);
 // $light: #f8f9fa;
 $light: $blue-00;
 
 /*
  *  UI
  */
-$bg: linear-gradient(to right, $blue-40, $blue-20);
-$text-color: $blue-40;
+$accent: #00c5d3;
 
-$border-color: $blue-10;
+// $bg: linear-gradient(to right, $blue-40, $blue-20);
+$bg: linear-gradient(to bottom left, $blue, $accent);
+$text-color: $grey-40;
+
+$border-color: $grey-10;
 $border: 1px solid $border-color;
 
 $radius: 5px;

@@ -100,7 +100,6 @@ const Sheet = (props) => {
   const getTodaysExpenses = () => {
     let total = 0;
     props.user.expenses.filter(e => e.date === moment(new Date()).format('DD')).forEach(expense => {
-      console.log("EXPENSE", expense.label);
       total += expense.amount;
     })
     return total;
@@ -168,7 +167,7 @@ const Sheet = (props) => {
             <Card className="sheet-card" >
               <>
                 <h3>Total Expenses</h3>
-                <Tooltip content={`${getMonthlyEstimated()}/${getMonthlyExpenses()} is estimated`} position="bottom" >
+                <Tooltip content={`${getMonthlyEstimated()}/${getMonthlyExpenses()} is estimated`} position="top" >
                   <h1 className="text-primary"><Icon icon="BiDollar" size={iconSize} className="mb-1"/>{getMonthlyExpenses()}</h1>
                 </Tooltip>
               </>
@@ -180,7 +179,7 @@ const Sheet = (props) => {
             <Card className="sheet-card" >
               <>
                 <h3>Remaining Expenses</h3>
-                <Tooltip content={`${getEstimatedRemainingExpenses()}/${getRemainingExpenses()} is estimated`} position="bottom" >
+                <Tooltip content={`${getEstimatedRemainingExpenses()}/${getRemainingExpenses()} is estimated`} position="top" >
                   <h1 className="text-primary"><Icon icon="BiDollar" size={iconSize} className="mb-1"/>{getRemainingExpenses()}</h1>
                 </Tooltip>
               </>
@@ -190,7 +189,7 @@ const Sheet = (props) => {
             <Card className="sheet-card" >
               <>
                 <h3>Withdrawn Today</h3>
-                <Tooltip content={`${getTodaysEstimated()}/${getTodaysExpenses()} is estimated`} position="bottom" >
+                <Tooltip content={`${getTodaysEstimated()}/${getTodaysExpenses()} is estimated`} position="top" >
                   <h1 className="text-primary"><Icon icon="BiDollar" size={iconSize} className="mb-1"/>{getTodaysExpenses()}</h1>
                 </Tooltip>
               </>

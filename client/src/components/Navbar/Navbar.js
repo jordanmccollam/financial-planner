@@ -15,7 +15,7 @@ const CustomNavbar = (props) => {
 
   return (
     <Navbar bg="light" expand="lg" fixed="top" className={`${props.className} ${classnames(classes)}`}>
-      <Navbar.Brand href="#home"><Logo size="sm" /></Navbar.Brand>
+      <Navbar.Brand><Logo size="sm" /></Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
