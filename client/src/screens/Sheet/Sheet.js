@@ -132,9 +132,9 @@ const Sheet = (props) => {
                 <h3>Monthly Balance
                   <Tooltip content={newBalance > -1 ? "Done Editing" : "Edit Monthly Balance"} position="bottom" >
                     {newBalance > -1 ? (
-                      <Button className="p-1" kind="ghost"><Icon icon="BiCheck" onClick={toggleEditBalace}/></Button>
+                      <Button className="p-1" kind="ghost" onClick={toggleEditBalace}><Icon icon="BiCheck"/></Button>
                     ) : (
-                      <Button className="p-1" kind="ghost"><Icon icon="MdEdit" onClick={toggleEditBalace}/></Button>
+                      <Button className="p-1" kind="ghost" onClick={toggleEditBalace}><Icon icon="MdEdit"/></Button>
                     )}
                   </Tooltip>
                 </h3>
