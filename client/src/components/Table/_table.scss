@@ -1,23 +1,39 @@
 @import "../../sass/variables";
 
 .table {
+    height: 75vh;
+    overflow: auto;
+
     input {
         width: 200px;
     }
 
     &-actions {
         width: 100%;
+        margin-right: 3px;
         .button {
-            margin: 0 5px;
+            margin: 0 2px;
         }
     }
 
     &-label {
         font-size: 12px;
-        font-weight: 500 !important;
+        font-weight: 600 !important;
     }
 
     &-row {
         border-bottom: 1px solid darken($blue-00, 8%);
+        padding: 8px 0;
+        cursor: pointer;
+        &:hover {
+            box-shadow: 1px 1px 2px $grey-10;
+            border-radius: $radius;
+        }
+    }
+
+    &-selected-msg {
+        font-size: 12px;
+        color: $blue-10;
+        margin: 5px;
     }
 }

@@ -64,9 +64,10 @@ const Sheet = (props) => {
         <Card className="full" >
           <>
             <Table 
-              // data={testExpenses}
+              data={props.user.expenses.sort((a, b) => parseInt(a.date) - parseInt(b.date))}
               actions={actions}
               columns={columns}
+              size={8}
             />
           </>
         </Card>
