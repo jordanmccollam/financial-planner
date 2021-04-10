@@ -2,4 +2,9 @@
 
 .sheet {
     height: 85vh;
+
+    &-card {
+        text-align: center;
+        padding: $space-03 10px;
+    }
 }

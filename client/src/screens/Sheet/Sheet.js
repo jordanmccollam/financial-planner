@@ -1,166 +1,117 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from 'prop-types'
 import classnames from "classnames"
-import { Container, Row, Col } from 'react-bootstrap'
-import { Card, Table, Icon } from '../../components';
+import { Container, Row, Col, Form } from 'react-bootstrap'
+import { Card, Table, Icon, Modal, Button, Checkbox, Expenses, Tooltip } from '../../components';
 import apis from '../../api';
+import moment from 'moment';
 
 import './_sheet.scss';
 
 const logger = "Sheet:: ";
 
-const testExpenses = [
-  {
-    label: 'Rent',
-    amount: 1280,
-    autopay: false,
-    estimated: false,
-    repeat: 1, // once a month
-    date: '01'
-  },
-  {
-    label: 'Power',
-    amount: 150,
-    autopay: true,
-    estimated: true,
-    repeat: 1, // once a month
-    date: '28'
-  },
-]
-
-const initialExpense = {
-  label: '',
-  amount: 0,
-  autopay: false,
-  estimated: false,
-  repeat: 1,
-  date: '01'
-}
+const iconSize = 25;
 
 const Sheet = (props) => {
-  const [ addModal, setAddModal ] = useState(false);
-  const [ editModal, setEditModal ] = useState(false);
-  const [ newExpense, setNewExpense ] = useState(initialExpense);
+  const [ newBalance, setNewBalance ] = useState(-1);
   let classes = {
 		[`sheet`]: true
 	};
 
-  const columns = [
-    { label: 'label' },
-    { 
-        label: 'amount',
-        customCol: (el) => {
-            return (
-                <div className="center-v">
-                  {/* <BiDollar size={10} /> */}
-                {el.amount}</div>
-            )
-        }
-    },
-    { label: 'autopay' },
-    { label: 'Est.', accessor: 'estimated' },
-    { label: 'date' },
-  ];
-
-  const addHandler = () => {
-    console.log(logger + "addHandler");
-    toggleShow();
-  }
-  const deleteHandler = async (selected) => {
-      console.log(logger + "deleteHandler: target", selected);
-      selected.forEach(el => {
-          apis.deleteExpense(props.user.token, el._id).then(res => {
-              console.log(logger + "deleteHandler: res", res);
-          }).catch(e => {
-              console.error(logger + 'deleteHandler', e);
-          })
-      });
-      props.setUser({
-          ...props.user,
-          expenses: props.user.expenses.filter(e => !selected.find(s => s._id === e._id))
-      })
-  }
-  const editHandler = (el) => {
-      console.log(logger + "editHandler", el);
-      setNewExpense(el);
-      setEditModal(el);
+  const toggleEditBalace = () => {
+    if (newBalance > -1) {
+      updateBalance(newBalance);
+      setNewBalance(-1);
+    } else {
+      setNewBalance(props.user.monthlyEarnings ? props.user.monthlyEarnings : 0);
+    }
   }
 
-  const actions = [
-    {
-      title: 'Add Expenses',
-      icon: "BiPlus",
-      type: 'global', // single, multi, global?
-      handler: addHandler,
-    },
-    {
-      title: 'Delete Expenses',
-      icon: "BiMinus",
-      type: 'multi', // single, multi, global?
-      handler: deleteHandler,
-      variant: 'danger'
-    },
-    {
-      title: 'Edit Expense',
-      icon: "MdEdit",
-      type: 'single', // single, multi, global?
-      handler: editHandler,
-    },
-  ]
-
-  const toggleShow = () => {
-    setAddModal(!addModal);
-  }
-
-  const onChange = (event) => {
-    setNewExpense({
-      ...newExpense,
-      [event.target.name]: event.target.value
-    })
-  }
-
-  const handleCheck = (field) => {
-    setNewExpense({
-      ...newExpense,
-      [field]: !newExpense[field]
-    })
-  }
-
-  const add = () => {
-    apis.createExpense(props.user.token, {...newExpense, user: props.user._id}).then(res => {
-      console.log(logger + 'createExpense: res ', res);
+  const updateBalance = (_balance) => {
+    console.log(logger + 'updateBalance', _balance);
+    apis.updateUser(props.user.token, props.user._id, {monthlyEarnings: _balance}).then(res => {
+      console.log(logger + 'updateBalance:: res', res);
       props.setUser({
         ...props.user,
-        expenses: [...props.user.expenses, res.data.output]
+        monthlyEarnings: _balance
       })
-      setAddModal(false);
-      setNewExpense(initialExpense);
     }).catch(e => {
-      console.error(logger + 'createExpense', e);
+      console.error(logger + 'updateBalance', e);
+    });
+  }
+
+  const getMonthlyExpenses = () => {
+    let total = 0;
+    props.user.expenses.forEach(expense => {
+      total += expense.amount;
+    });
+    return total;
+  }
+
+  const getMonthlyEstimated = () => {
+    let total = 0;
+    props.user.expenses.filter(e => e.estimated).forEach(expense => {
+      total += expense.amount;
     })
+    return total;
   }
 
-  const edit = () => {
-    if (newExpense._id) {
-      let _user = JSON.parse(JSON.stringify(props.user));
-      apis.updateExpense(props.user.token, newExpense._id, {...newExpense}).then(res => {
-        console.log(logger + 'editExpense: res ', res);
-        _user.expenses.splice(_user.expenses.indexOf(_user.expenses.find(e => e._id === newExpense._id)), 1, res.data.output);
-        props.setUser(_user);
-        setEditModal(false);
-        setNewExpense(initialExpense);
-      }).catch(e => {
-        console.error(logger + 'editExpense', e);
-      })
-    }
+  const getBalanceAfterExpenses = () => {
+    let total = props.user.monthlyEarnings || 0;
+    let modifer = getMonthlyExpenses();
+    total -= modifer;
+    return total;
   }
 
-  const validate = () => {
-    if (newExpense.label && newExpense.amount > -1 && newExpense.date && newExpense.repeat) {
-      return false;
-    } else {
-      return true;
-    }
+  const getEstimatedRemainingExpenses = () => {
+    let total = 0;
+    props.user.expenses.filter(e => parseInt(e.date) >= parseInt(moment(new Date()).format('DD'))).forEach(expense => {
+      if (expense.estimated) {
+        total += expense.amount;
+      }
+    })
+    return total;
+  }
+
+  const getRemainingExpenses = () => {
+    let total = getMonthlyExpenses();
+    props.user.expenses.filter(e => parseInt(e.date) <= parseInt(moment(new Date()).format('DD'))).forEach(expense => {
+      total -= expense.amount;
+    })
+    return total;
+  }
+
+  const getCurrentBalance = () => {
+    let total = props.user.monthlyEarnings || 0;
+    props.user.expenses.filter(e => parseInt(e.date) <= parseInt(moment(new Date()).format('DD'))).forEach(expense => {
+      total -= expense.amount;
+    })
+    return total;
+  }
+
+  const getCurrentBalanceEstimated = () => {
+    let total = 0;
+    props.user.expenses.filter(e => e.estimated && parseInt(e.date) <= parseInt(moment(new Date()).format('DD'))).forEach(expense => {
+      total += expense.amount;
+    })
+    return total;
+  }
+
+  const getTodaysExpenses = () => {
+    let total = 0;
+    props.user.expenses.filter(e => e.date === moment(new Date()).format('DD')).forEach(expense => {
+      console.log("EXPENSE", expense.label);
+      total += expense.amount;
+    })
+    return total;
+  }
+
+  const getTodaysEstimated = () => {
+    let total = 0;
+    props.user.expenses.filter(e => e.estimated && e.date === moment(new Date()).format('DD')).forEach(expense => {
+      total += expense.amount;
+    })
+    return total;
   }
 
   return (
@@ -168,13 +119,99 @@ const Sheet = (props) => {
       <Col lg={5}>
         <Card className="full" >
           <>
-            <Table 
-              data={props.user.expenses.sort((a, b) => parseInt(a.date) - parseInt(b.date))}
-              actions={actions}
-              columns={columns}
-            />
+            <Expenses {...props} />
           </>
         </Card>
+      </Col>
+
+      <Col>
+        <Row >
+          <Col xs={4} className="mb-3" >
+            <Card className="sheet-card" >
+              <>
+                <h3>Monthly Balance
+                  <Tooltip content={newBalance > -1 ? "Done Editing" : "Edit Monthly Balance"} position="bottom" >
+                    {newBalance > -1 ? (
+                      <Button className="p-1" kind="ghost"><Icon icon="BiCheck" onClick={toggleEditBalace}/></Button>
+                    ) : (
+                      <Button className="p-1" kind="ghost"><Icon icon="MdEdit" onClick={toggleEditBalace}/></Button>
+                    )}
+                  </Tooltip>
+                </h3>
+                {newBalance > -1 ? (
+                  <Form.Control type="number" value={newBalance} onChange={(event) => setNewBalance(event.target.value)} />
+                ) : (
+                  <h1 className="text-primary"><Icon icon="BiDollar" size={iconSize} className="mb-1"/>{props.user.monthlyEarnings ?? 0}</h1>
+                )}
+              </>
+            </Card>
+          </Col>
+          <Col className="mb-3" >
+            <Card className="sheet-card" >
+              <>
+                <h3>Balance After Expenses</h3>
+                <h1 className="text-primary"><Icon icon="BiDollar" size={iconSize} className="mb-1"/>{getBalanceAfterExpenses()}</h1>
+              </>
+            </Card>
+          </Col>
+        </Row>
+        <Row >
+          <Col xs={7} className="mb-3" >
+            <Card className="sheet-card" >
+              <>
+                <h3>Current Balance</h3>
+                <h1 className="text-primary"><Icon icon="BiDollar" size={iconSize} className="mb-1"/>{getCurrentBalance()}</h1>
+              </>
+            </Card>
+          </Col>
+          <Col className="mb-3" >
+            <Card className="sheet-card" >
+              <>
+                <h3>Total Expenses</h3>
+                <Tooltip content={`${getMonthlyEstimated()}/${getMonthlyExpenses()} is estimated`} position="bottom" >
+                  <h1 className="text-primary"><Icon icon="BiDollar" size={iconSize} className="mb-1"/>{getMonthlyExpenses()}</h1>
+                </Tooltip>
+              </>
+            </Card>
+          </Col>
+        </Row>
+        <Row >
+          <Col className="mb-3" >
+            <Card className="sheet-card" >
+              <>
+                <h3>Remaining Expenses</h3>
+                <Tooltip content={`${getEstimatedRemainingExpenses()}/${getRemainingExpenses()} is estimated`} position="bottom" >
+                  <h1 className="text-primary"><Icon icon="BiDollar" size={iconSize} className="mb-1"/>{getRemainingExpenses()}</h1>
+                </Tooltip>
+              </>
+            </Card>
+          </Col>
+          <Col className="mb-3" >
+            <Card className="sheet-card" >
+              <>
+                <h3>Withdrawn Today</h3>
+                <Tooltip content={`${getTodaysEstimated()}/${getTodaysExpenses()} is estimated`} position="bottom" >
+                  <h1 className="text-primary"><Icon icon="BiDollar" size={iconSize} className="mb-1"/>{getTodaysExpenses()}</h1>
+                </Tooltip>
+              </>
+            </Card>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col>
+            <Card >
+              <>
+                <h3>Tips</h3>
+                <ul>
+                  <li className="mb-2">Click on the icon next to the Monthly Balance card to change your monthly balance</li>
+                  <li className="mb-2">Hover over the numbers above to see how much of it may be estimated</li>
+                  <li className="mb-2">Try selecting items from the expenses table to see what actions are available</li>
+                </ul>
+              </>
+            </Card>
+          </Col>
+        </Row>
       </Col>
     </Row>
   )

@@ -1,0 +1,13 @@
+@import "../../sass/variables";
+
+.modal {
+    &-header {
+        color: $primary;
+        border-bottom: 1px solid $grey-00 !important;
+    }
+
+    &-content {
+        background-color: $light !important;
+        border-radius: $radius !important;
+    }
+}

@@ -18,7 +18,34 @@ export const updateUser = (token, id, payload) =>
     // {headers: {Authorization: `Bearer ${token}`}})
     .catch(e => console.error("request", e));
 
+// ENTRIES
+export const getExpenses = (token) => 
+    rest.get(`/api/expenses`)
+    // {headers: {Authorization: `Bearer ${token}`}})
+    .catch(e => console.error("request", e));
+export const getExpense = (token, id) => 
+    rest.get(`/api/expense/${id}` )
+    // {headers: {Authorization: `Bearer ${token}`}})
+    .catch(e => console.error("request", e));
+export const createExpense = (token, payload) => 
+    rest.post(`/api/expense`, payload)
+    // {headers: {Authorization: `Bearer ${token}`}})
+    .catch(e => console.error("request", e));
+export const updateExpense = (token, id, payload) => 
+    rest.put(`/api/expense/${id}`, payload)
+    // {headers: {Authorization: `Bearer ${token}`}})
+    .catch(e => console.error("request", e));
+export const deleteExpense = (token, id) => 
+    rest.delete(`/api/expense/${id}`)
+    // {headers: {Authorization: `Bearer ${token}`}})
+    .catch(e => console.error("request", e));
+
 const apis = {
+    createExpense,
+    getExpenses,
+    updateExpense,
+    deleteExpense,
+    getExpense,
     getUser,
     createUser,
     updateUser
