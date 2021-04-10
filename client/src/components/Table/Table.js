@@ -172,13 +172,13 @@ const Table = (props) => {
         <Col>
           <div>
             {props.actions.filter(a => a.type && a.type === 'global').map((action, i) => (
-              <Button full className="py-1 mt-1 table-mobile-btn" onClick={action.handler} ><>{action.title} <Icon icon={action.icon} /></></Button>
+              <Button key={`mobile-table-actions-global-${i}`} full className="py-1 mt-1 table-mobile-btn" onClick={action.handler} ><>{action.title} <Icon icon={action.icon} /></></Button>
             ))}
             {selected.length > 0 && props.actions.filter(a => a.type && a.type === 'multi').map((action, i) => (
-              <Button full className="py-1 mt-1 table-mobile-btn" onClick={() => handleMultiAction(action.handler)} ><>{action.title} <Icon icon={action.icon} /></></Button>
+              <Button key={`mobile-table-actions-multi-${i}`} full className="py-1 mt-1 table-mobile-btn" onClick={() => handleMultiAction(action.handler)} ><>{action.title} <Icon icon={action.icon} /></></Button>
             ))}
             {selected.length === 1 && props.actions.filter(a => a.type && a.type === 'single').map((action, i) => (
-              <Button full className="py-1 mt-1 table-mobile-btn" onClick={() => handleSingleAction(action.handler)} ><>{action.title} <Icon icon={action.icon} /></></Button>
+              <Button key={`mobile-table-actions-single-${i}`} full className="py-1 mt-1 table-mobile-btn" onClick={() => handleSingleAction(action.handler)} ><>{action.title} <Icon icon={action.icon} /></></Button>
             ))}
           </div>
         </Col>
