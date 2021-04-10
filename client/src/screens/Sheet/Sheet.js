@@ -116,7 +116,7 @@ const Sheet = (props) => {
 
   return (
     <Row className={`${props.className} ${classnames(classes)}`}>
-      <Col lg={5}>
+      <Col lg={5} className="mb-3">
         <Card className="full" >
           <>
             <Expenses {...props} />
@@ -126,7 +126,7 @@ const Sheet = (props) => {
 
       <Col>
         <Row >
-          <Col xs={4} className="mb-3" >
+          <Col md={4} className="mb-3" >
             <Card className="sheet-card" >
               <>
                 <h3>Monthly Balance
@@ -156,7 +156,7 @@ const Sheet = (props) => {
           </Col>
         </Row>
         <Row >
-          <Col xs={7} className="mb-3" >
+          <Col md={7} className="mb-3" >
             <Card className="sheet-card" >
               <>
                 <h3>Current Balance</h3>
