@@ -22,7 +22,7 @@ const Welcome = (props) => {
             <div className="border-bottom" />
 
             <div className="px-5 my-4">
-              <Button full ><>Sign In <Icon icon="AiOutlineLogin" size={30} className="ml-1" /></></Button>
+              <Button full onClick={props.signIn} ><>Sign In <Icon icon="AiOutlineLogin" size={30} className="ml-1" /></></Button>
             </div>
           </>
         </Card>
@@ -32,11 +32,13 @@ const Welcome = (props) => {
 }
 
 Welcome.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
+  signIn: PropTypes.func
 }
 
 Welcome.defaultProps = {
-  className: ""
+  className: "",
+  signIn: () => console.log(logger + 'signIn')
 }
 
 export default Welcome;

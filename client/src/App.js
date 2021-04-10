@@ -61,7 +61,7 @@ function App() {
               dbUser ? (
                 // LOGGED IN CONTENT
                 <>
-                  Logged In
+                  <Comp.Button full onClick={logout} >Sign Out</Comp.Button>
                 </>
                 // ------------------
               ) : (
@@ -75,7 +75,7 @@ function App() {
             ) : (
               // LOGGED OUT CONTENT
               <>
-                <Screens.Welcome />
+                <Screens.Welcome signIn={loginWithRedirect} />
               </>
               // ------------------
             )}
