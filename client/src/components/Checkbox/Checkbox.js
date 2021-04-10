@@ -16,9 +16,9 @@ const Checkbox = (props) => {
   return (
     <div className={`${props.className} ${classnames(classes)}`} onClick={props.onCheck}>
       {props.checked ? (
-        <Icon icon="BsCheckBox" size={props.size + 2} />
+        <Icon icon="BsCheckCircle" size={props.size + 2} />
       ) : (
-        <Icon icon="BsSquare" size={props.size} />
+        <Icon icon="BsCircle" size={props.size} />
       )}
     </div>
   )

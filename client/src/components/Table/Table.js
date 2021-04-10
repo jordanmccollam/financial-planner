@@ -188,7 +188,7 @@ const Table = (props) => {
       <Row className="center-v table-row no-hover">
         <Col xs={1}>
           {/* <Tooltip content={`Shift + click to ${selected.length > 0 ? 'UNSELECT' : 'SELECT'} ${selected.length > 0 ? 'ALL' : searchResults.length} items`} position="top" > */}
-            <Button kind="ghost" onClick={toggleSelectAll} className="p-2" ><>{selected.length > 0 ? <Icon icon="BsDashSquare" size={13} /> : <Icon icon="BsSquare" size={13} />}</></Button>
+            <Button kind="ghost" onClick={toggleSelectAll} className="p-2" ><>{selected.length > 0 ? <Icon icon="BsDashCircle" size={13} /> : <Icon icon="BsCircle" size={13} />}</></Button>
           {/* </Tooltip> */}
         </Col>
         {props.columns.map((col, index) => {
@@ -207,7 +207,7 @@ const Table = (props) => {
           sliced.map((row, rowIndex) => (
             <Row key={`table-row-${rowIndex}`} className="center-v table-row" onClick={() => selectRow(row)}>
               <Col xs={1} >
-                <Button className="p-2" kind="ghost">{selected.includes(row) ? <Icon icon="BsCheckBox" size={15} /> : <Icon icon="BsSquare" size={13} />}</Button>
+                <Button className="p-2" kind="ghost">{selected.includes(row) ? <Icon icon="BsCheckCircle" size={15} /> : <Icon icon="BsCircle" size={13} />}</Button>
               </Col>
               {props.columns.map((el, colIndex) => (
                 <Col key={`table-column-${colIndex}`} >
