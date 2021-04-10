@@ -118,7 +118,7 @@ $light: $blue-00;
 $accent: #00c5d3;
 
 // $bg: linear-gradient(to right, $blue-40, $blue-20);
-$bg: linear-gradient(to bottom left, $blue, $accent);
+$bg: linear-gradient(135deg, $blue 45%, $accent);
 $text-color: $grey-40;
 
 $border-color: $grey-10;
