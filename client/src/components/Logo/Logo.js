@@ -10,7 +10,8 @@ const logger = "Logo:: ";
 
 const Logo = (props) => {
   let classes = {
-		[`logo`]: true
+		[`logo`]: true,
+    [`logo-${props.size}`]: true
 	};
 
   return (
@@ -19,7 +20,7 @@ const Logo = (props) => {
         Bills n'
         <div className="logo-group-container">
           <div className="logo-group">
-            <Icon icon="FaFileInvoiceDollar" size={55} className="logo-group-icon" />
+            <Icon icon="FaFileInvoiceDollar" size={props.size === 'sm' ? 40 : 55} className="logo-group-icon" />
             <div className="logo-group-overlay">heet</div>
           </div>
         </div>
@@ -29,11 +30,13 @@ const Logo = (props) => {
 }
 
 Logo.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
+  size: PropTypes.oneOf(['sm', 'md'])
 }
 
 Logo.defaultProps = {
-  className: ""
+  className: "",
+  size: 'md'
 }
 
 export default Logo;

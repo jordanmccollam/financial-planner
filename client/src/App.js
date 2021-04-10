@@ -35,7 +35,7 @@ function App() {
         createUser(_token);
       } else {
         setTheme(res.data.output.theme);
-        setDbUser({...res.data.output, _token});
+        setDbUser({...res.data.output, _token, ...user});
       }
     }).catch(e => {
       console.error("connectUserToDb", e);
@@ -61,7 +61,7 @@ function App() {
               dbUser ? (
                 // LOGGED IN CONTENT
                 <>
-                  <Comp.Button full onClick={logout} >Sign Out</Comp.Button>
+                  <Comp.Navbar signout={logout} user={dbUser} />
                 </>
                 // ------------------
               ) : (

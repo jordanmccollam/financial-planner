@@ -30,4 +30,18 @@
             font-weight: 400 !important;
         }
     }
+
+    &-sm {
+        font-size: $text-02 !important;
+        .logo-group-container {
+            top: -35%;
+            right: 88px;
+        }
+        .logo-group {
+            &-overlay {
+                right: -90%;
+                bottom: -1px;
+            }
+        }
+    }
 }
