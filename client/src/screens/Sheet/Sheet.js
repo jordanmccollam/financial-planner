@@ -67,7 +67,6 @@ const Sheet = (props) => {
               data={props.user.expenses.sort((a, b) => parseInt(a.date) - parseInt(b.date))}
               actions={actions}
               columns={columns}
-              size={8}
             />
           </>
         </Card>

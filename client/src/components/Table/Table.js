@@ -135,7 +135,7 @@ const Table = (props) => {
 
   return (
     <Container className={`${props.className} ${classnames(classes)}`}>
-      <Row>
+      <Row className="table-header">
         <Col xs={12} className="d-flex justify-content-between" >
           <div className="center-v table-actions justify-content-between">
             <div className="d-flex">
@@ -169,7 +169,7 @@ const Table = (props) => {
       </Row>
 
       {/* TABLE LABELS */}
-      <Row className="center-v table-row">
+      <Row className="center-v table-row no-hover">
         <Col xs={1}>
           <Tooltip content={`Shift + click to ${selected.length > 0 ? 'UNSELECT' : 'SELECT'} ${selected.length > 0 ? 'ALL' : searchResults.length} items`} position="top" >
             <Button kind="ghost" onClick={toggleSelectAll} className="p-2" ><>{selected.length > 0 ? <Icon icon="BsDashSquare" size={13} /> : <Icon icon="BsSquare" size={13} />}</></Button>
@@ -184,27 +184,31 @@ const Table = (props) => {
         })}
       </Row>
 
-      {/* TABLE ROWS */}
-      {props.data.length > 0 ? (
-        sliced.map((row, rowIndex) => (
-          <Row key={`table-row-${rowIndex}`} className="center-v table-row" onClick={() => selectRow(row)}>
-            <Col xs={1} >
-              <Button className="p-2" kind="ghost">{selected.includes(row) ? <Icon icon="BsCheckBox" size={13} /> : <Icon icon="BsSquare" size={13} />}</Button>
-            </Col>
-            {props.columns.map((el, colIndex) => (
-              <Col key={`table-column-${colIndex}`} >
-                <div>{renderElement(el, row)}</div>
+        <div className="table-content" >
+
+        {/* TABLE ROWS */}
+        {props.data.length > 0 ? (
+          sliced.map((row, rowIndex) => (
+            <Row key={`table-row-${rowIndex}`} className="center-v table-row" onClick={() => selectRow(row)}>
+              <Col xs={1} >
+                <Button className="p-2" kind="ghost">{selected.includes(row) ? <Icon icon="BsCheckBox" size={15} /> : <Icon icon="BsSquare" size={13} />}</Button>
               </Col>
-            ))}
+              {props.columns.map((el, colIndex) => (
+                <Col key={`table-column-${colIndex}`} >
+                  <div>{renderElement(el, row)}</div>
+                </Col>
+              ))}
+            </Row>
+          ))
+        ) : (
+          <Row>
+            <Col>
+              <div className="text-center">No Data</div>
+            </Col>
           </Row>
-        ))
-      ) : (
-        <Row>
-          <Col>
-            <div className="text-center">No Data</div>
-          </Col>
-        </Row>
-      )}
+        )}
+
+      </div>
 
       <Row>
         <Col xs={12} className="center mt-3">

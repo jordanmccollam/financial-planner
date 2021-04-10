@@ -1,8 +1,7 @@
 @import "../../sass/variables";
 
 .table {
-    height: 75vh;
-    overflow: auto;
+    position: relative;
 
     input {
         width: 200px;
@@ -29,11 +28,41 @@
             box-shadow: 1px 1px 2px $grey-10;
             border-radius: $radius;
         }
+
+        &.no-hover:hover {
+            box-shadow: none;
+            border-radius: none;
+        }
     }
 
     &-selected-msg {
         font-size: 12px;
         color: $blue-10;
         margin: 5px;
+    }
+
+    // &-header {
+    //     position: absolute;
+    //     width: 100%;
+    // }
+
+    &-content {
+        // margin-top: 38px;
+        max-height: 56vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+        scrollbar-width: thin;
+        
+        &::-webkit-scrollbar {
+            width: 2px;
+        }
+        &::-webkit-scrollbar-track {
+            background: lighten($blue-10, 25%);
+            border-radius: $radius;
+        }
+        &::-webkit-scrollbar-thumb {
+            background: $blue-10;
+            border-radius: $radius;
+        }
     }
 }
