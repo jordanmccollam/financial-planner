@@ -163,7 +163,7 @@ const Table = (props) => {
             </div>
           </div>
           <div className="d-flex">
-            <Form.Control value={searchValue} onChange={onSearch} placeholder="Search" className="shadow-sm" />
+            <Form.Control value={searchValue} onChange={onSearch} placeholder={`Search ${props.data.length} items`} className="shadow-sm" />
           </div>
         </Col>
       </Row>
