@@ -141,10 +141,10 @@ const Table = (props) => {
             <div className="d-flex">
               <h3 >{props.title}</h3>
               {selected.length > 0 && (
-                <div className="table-selected-msg">{selected.length} selected</div>
+                <div className="table-selected-msg d-none d-md-block">{selected.length} selected</div>
               )}
             </div>
-            <div>
+            <div className="d-none d-md-block">
               {selected.length === 1 && props.actions.filter(a => a.type && a.type === 'single').map((action, i) => (
                 <Tooltip key={`table-actions-single-${i}`} content={action.title} position="bottom" >
                   <Button className="p-2" onClick={() => handleSingleAction(action.handler)} ><><Icon icon={action.icon} /></></Button>
@@ -162,8 +162,24 @@ const Table = (props) => {
               ))}
             </div>
           </div>
-          <div className="d-flex">
+          <div className="d-none d-md-flex">
             <Form.Control value={searchValue} onChange={onSearch} placeholder={`Search ${props.data.length} items`} className="shadow-sm" />
+          </div>
+        </Col>
+      </Row>
+
+      <Row>
+        <Col>
+          <div>
+            {props.actions.filter(a => a.type && a.type === 'global').map((action, i) => (
+              <Button full className="py-1 mt-1 table-mobile-btn" onClick={action.handler} ><>{action.title} <Icon icon={action.icon} /></></Button>
+            ))}
+            {selected.length > 0 && props.actions.filter(a => a.type && a.type === 'multi').map((action, i) => (
+              <Button full className="py-1 mt-1 table-mobile-btn" onClick={() => handleMultiAction(action.handler)} ><>{action.title} <Icon icon={action.icon} /></></Button>
+            ))}
+            {selected.length === 1 && props.actions.filter(a => a.type && a.type === 'single').map((action, i) => (
+              <Button full className="py-1 mt-1 table-mobile-btn" onClick={() => handleSingleAction(action.handler)} ><>{action.title} <Icon icon={action.icon} /></></Button>
+            ))}
           </div>
         </Col>
       </Row>

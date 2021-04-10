@@ -116,7 +116,7 @@ const Sheet = (props) => {
 
   return (
     <Row className={`${props.className} ${classnames(classes)}`}>
-      <Col lg={5} className="mb-3">
+      <Col lg={5} className="mb-3 d-none d-md-block">
         <Card className="full" >
           <>
             <Expenses {...props} />
@@ -193,6 +193,16 @@ const Sheet = (props) => {
                 <Tooltip content={`${getTodaysEstimated()}/${getTodaysExpenses()} is estimated`} position="bottom" >
                   <h1 className="text-primary"><Icon icon="BiDollar" size={iconSize} className="mb-1"/>{getTodaysExpenses()}</h1>
                 </Tooltip>
+              </>
+            </Card>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col lg={5} className="mb-3 d-block d-md-none">
+            <Card className="full sheet-card" >
+              <>
+                <Expenses {...props} />
               </>
             </Card>
           </Col>

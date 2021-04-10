@@ -62,6 +62,21 @@ const Expenses = (props) => {
     { label: 'date' },
   ];
 
+  const smColumns = [
+    { label: 'label' },
+    { 
+        label: 'amount',
+        customCol: (el) => {
+            return (
+                <div className="center-v">
+                <Icon icon="BiDollar" size={13} />
+                {el.amount}</div>
+            )
+        }
+    },
+    { label: 'date' },
+  ];
+
   const addHandler = () => {
     console.log(logger + "addHandler");
     toggleShow();
@@ -167,9 +182,18 @@ const Expenses = (props) => {
   return (
     <div className={`${props.className} ${classnames(classes)}`}>
       <Table 
+        title="Expenses"
         data={props.user.expenses.sort((a, b) => parseInt(a.date) - parseInt(b.date))}
         actions={actions}
         columns={columns}
+        className="d-none d-md-block"
+      />
+      <Table 
+        title="Expenses"
+        data={props.user.expenses.sort((a, b) => parseInt(a.date) - parseInt(b.date))}
+        actions={actions}
+        columns={smColumns}
+        className="d-md-none"
       />
 
       <Modal show={addModal} setShow={setAddModal} title="Add Expense" >
