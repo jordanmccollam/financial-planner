@@ -1,8 +1,8 @@
-import { MdAttachMoney } from 'react-icons/md';
+import { MdAttachMoney, MdEdit } from 'react-icons/md';
 import { FaFileInvoiceDollar } from 'react-icons/fa';
 import { AiOutlineLogin } from 'react-icons/ai';
 import { BsDashSquare, BsSquare, BsCheckBox } from 'react-icons/bs';
-import { BiX, BiCheck } from 'react-icons/bi';
+import { BiX, BiCheck, BiMinus, BiPlus } from 'react-icons/bi';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
 export {
@@ -15,5 +15,8 @@ export {
     BiCheck,
     BiX,
     IoIosArrowForward,
-    IoIosArrowBack
+    IoIosArrowBack,
+    BiPlus,
+    BiMinus,
+    MdEdit
 }

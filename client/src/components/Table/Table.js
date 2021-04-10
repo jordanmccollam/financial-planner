@@ -145,19 +145,19 @@ const Table = (props) => {
               )}
             </div>
             <div>
-              {props.actions.filter(a => a.type && a.type === 'global').map((action, i) => (
-                <Tooltip key={`table-actions-global-${i}`} content={action.title} position="bottom" >
-                  <Button className="p-2" onClick={action.handler} ><><Icon icon={action.icon} /></></Button>
+              {selected.length === 1 && props.actions.filter(a => a.type && a.type === 'single').map((action, i) => (
+                <Tooltip key={`table-actions-single-${i}`} content={action.title} position="bottom" >
+                  <Button className="p-2" onClick={() => handleSingleAction(action.handler)} ><><Icon icon={action.icon} /></></Button>
                 </Tooltip>
               ))}
-              {selected.length > 0 && props.actions.filter(a => a.type && a.type === 'global').map((action, i) => (
+              {selected.length > 0 && props.actions.filter(a => a.type && a.type === 'multi').map((action, i) => (
                 <Tooltip key={`table-actions-multi-${i}`} content={action.title} position="bottom" >
                   <Button className="p-2" onClick={() => handleMultiAction(action.handler)} ><><Icon icon={action.icon} /></></Button>
                 </Tooltip>
               ))}
-              {selected.length === 1 && props.actions.filter(a => a.type && a.type === 'global').map((action, i) => (
-                <Tooltip key={`table-actions-single-${i}`} content={action.title} position="bottom" >
-                  <Button className="p-2" onClick={() => handleSingleAction(action.handler)} ><><Icon icon={action.icon} /></></Button>
+              {props.actions.filter(a => a.type && a.type === 'global').map((action, i) => (
+                <Tooltip key={`table-actions-global-${i}`} content={action.title} position="bottom" >
+                  <Button className="p-2" onClick={action.handler} ><><Icon icon={action.icon} /></></Button>
                 </Tooltip>
               ))}
             </div>
