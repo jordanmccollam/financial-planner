@@ -53,8 +53,8 @@ function App() {
 
   return (
     <div className="App">
-      <Container fluid>
-        <Row className="full">
+      <Container fluid className="px-0">
+        <Row className="full px-0 mx-0">
           <Col>
       
             {user ? (
