@@ -91,13 +91,13 @@ const Table = (props) => {
           const value = element.props.children
           return (
               typeof value === 'string' && value.toUpperCase().includes(event.target.value.toUpperCase()) ||
-              typeof value === 'object' && value.some(a => a.toUpperCase().includes(event.target.value.toUpperCase()))
+              typeof value === 'object' && value.some(a => a.toUpperCase?.().includes(event.target.value.toUpperCase()))
           )
         } else {
           let tmp = c.accessor ? c.accessor : c.label;
           return (
               typeof d[tmp] === 'string' && d[tmp].toUpperCase().includes(event.target.value.toUpperCase()) ||
-              typeof d[tmp] === 'object' && d[tmp].some(a => a.toUpperCase().includes(event.target.value.toUpperCase()))
+              typeof d[tmp] === 'object' && d[tmp].some(a => a.toUpperCase?.().includes(event.target.value.toUpperCase()))
           )
         }
     }));
@@ -201,7 +201,7 @@ const Table = (props) => {
             </Row>
           ))
         ) : (
-          <Row>
+          <Row className="mt-2">
             <Col>
               <div className="text-center">No Data</div>
             </Col>
