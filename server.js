@@ -12,7 +12,7 @@ const apiPort = process.env.PORT || 8000;
 
 const routes = require('./routes/index.js');
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/financial-planner?readPreference=primary&ssl=false', { useNewUrlParser: true, useUnifiedTopology: true }).catch(e => {
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true }).catch(e => {
     console.error('Connection error', e.message);
 });
 
