@@ -16,6 +16,7 @@
     "react-icons": "^4.2.0",
     "react-lightweight-tooltip": "^1.0.0",
     "react-scripts": "4.0.3",
+    "sass": "^1.32.8",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
@@ -67,7 +68,6 @@
     "babel-preset-react-app": "^10.0.0",
     "classnames": "^2.2.6",
     "hygen": "^6.0.4",
-    "node-sass": "^5.0.0",
     "prop-types": "^15.7.2",
     "sass-loader": "^10.1.1"
   }
