@@ -29,6 +29,7 @@ const Sheet = (props) => {
 
   const updateBalance = (_balance) => {
     console.log(logger + 'updateBalance', _balance);
+    console.log(logger + 'user', props.user);
     apis.updateUser(props.user.token, props.user._id, {monthlyEarnings: _balance}).then(res => {
       console.log(logger + 'updateBalance:: res', res);
       props.setUser({
