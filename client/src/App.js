@@ -26,8 +26,8 @@ function App() {
   }
 
   const connectUserToDb = async () => {
-    const _token = 'test';
-    // const _token = await getAccessTokenSilently();
+    // const _token = 'test';
+    const _token = await getAccessTokenSilently();
     setToken(_token);
     apis.getUser(_token, user.email).then(res => {
       console.log("connectUserToDb:: res", res);
@@ -54,7 +54,7 @@ function App() {
   return (
     <div className="App">
       <Container fluid className="px-0">
-        <Row className="full px-0 mx-0">
+        <Row className="full px-0 mx-0 py-3">
           <Col>
       
             {user ? (

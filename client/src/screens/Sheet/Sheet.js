@@ -116,7 +116,7 @@ const Sheet = (props) => {
   return (
     <Row className={`${props.className} ${classnames(classes)}`}>
       <Col lg={5} className="mb-3 d-none d-md-block">
-        <Card className="full" >
+        <Card className="half" >
           <>
             <Expenses {...props} />
           </>
@@ -209,7 +209,7 @@ const Sheet = (props) => {
 
         <Row>
           <Col>
-            <Card >
+            <Card className="mb-3" >
               <>
                 <h3>Tips</h3>
                 <ul>

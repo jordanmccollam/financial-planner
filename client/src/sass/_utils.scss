@@ -17,12 +17,12 @@
 }
 
 .full {
-  height: 100%;
+  height: calc(100vh - 64px);
   overflow: auto;
 }
 
 .half {
-  height: 50%;
+  height: 85vh;
   overflow: auto;
 }
 
