@@ -4,6 +4,8 @@ import classnames from "classnames"
 import { Container, Row, Col, Form } from 'react-bootstrap'
 import { Card, Table, Icon, Modal, Button, Checkbox } from '../index';
 import apis from '../../api';
+import DatePicker from "react-datepicker";
+import moment from 'moment';
 
 import './_expenses.scss';
 
@@ -34,7 +36,7 @@ const initialExpense = {
   autopay: false,
   estimated: false,
   repeat: 1,
-  date: '01'
+  date: new Date()
 }
 
 const Expenses = (props) => {
@@ -59,7 +61,14 @@ const Expenses = (props) => {
     },
     { label: 'autopay' },
     { label: 'Est.', accessor: 'estimated' },
-    { label: 'date' },
+    { 
+      label: 'date',
+      customCol: (el) => {
+        return (
+          <div>{moment(el.date).format('DD')}</div>
+        )
+      }
+    },
   ];
 
   const smColumns = [
@@ -74,7 +83,14 @@ const Expenses = (props) => {
             )
         }
     },
-    { label: 'date' },
+    { 
+      label: 'date',
+      customCol: (el) => {
+        return (
+          <div>{moment(el.date).format('MM')}</div>
+        )
+      }
+    },
   ];
 
   const addHandler = () => {
@@ -183,14 +199,14 @@ const Expenses = (props) => {
     <div className={`${props.className} ${classnames(classes)}`}>
       <Table 
         title="Expenses"
-        data={props.user.expenses.sort((a, b) => parseInt(a.date) - parseInt(b.date))}
+        data={props.user.expenses.sort((a, b) => parseInt(moment(a.date).format('MM')) - parseInt(moment(b.date).format('MM')))}
         actions={actions}
         columns={columns}
         className="d-none d-md-block"
       />
       <Table 
         title="Expenses"
-        data={props.user.expenses.sort((a, b) => parseInt(a.date) - parseInt(b.date))}
+        data={props.user.expenses.sort((a, b) => parseInt(moment(a.date).format('MM')) - parseInt(moment(b.date).format('MM')))}
         actions={actions}
         columns={smColumns}
         className="d-md-none"
@@ -208,7 +224,8 @@ const Expenses = (props) => {
           </Col>
           <Col>
             <Form.Label className="mt-3" >Due Date</Form.Label>
-            <Form.Control name="date" value={newExpense.date} onChange={onChange} />
+            <DatePicker selected={newExpense.date} onChange={date => onChange({target: {name: 'date', value: date}})} className="form-control" />
+            {/* <Form.Control name="date" value={newExpense.date} onChange={onChange} /> */}
           </Col>
         </Row>
 
@@ -239,7 +256,8 @@ const Expenses = (props) => {
           </Col>
           <Col>
             <Form.Label className="mt-3" >Due Date</Form.Label>
-            <Form.Control name="date" value={newExpense.date} onChange={onChange} />
+            <DatePicker selected={newExpense.date} onChange={date => onChange({target: {name: 'date', value: date}})} className="form-control" />
+            {/* <Form.Control name="date" value={newExpense.date} onChange={onChange} /> */}
           </Col>
         </Row>
 
